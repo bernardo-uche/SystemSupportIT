@@ -1,0 +1,43 @@
+[
+  
+  {
+    "id_cliente": 1,
+    "nombre": "Empresa",
+    "apellido": "ABC",
+    "telefono": "77765432",
+    "correo": "contacto@empresaabc.com",
+    "direccion": "Av. Principal 123",
+    "nit_ci": "123456789",
+    "estado": 1
+  },
+  {
+    "id_cliente": 2,
+    "nombre": "María",
+    "apellido": "López",
+    "telefono": "77765433",
+    "correo": "maria.lopez@gmail.com",
+    "direccion": "Calle 2 #45",
+    "nit_ci": "987654321",
+    "estado": 1
+  },
+  {
+    "id_cliente": 3,
+    "nombre": "Tecnología",
+    "apellido": "XYZ",
+    "telefono": "77765434",
+    "correo": "info@tecnologiaxyz.com",
+    "direccion": "Zona Norte 789",
+    "nit_ci": "456789123",
+    "estado": 1
+  },
+  {
+    "id_cliente": 4,
+    "nombre": "Pedro",
+    "apellido": "Ramírez",
+    "telefono": "77765435",
+    "correo": "pedro.ramirez@hotmail.com",
+    "direccion": "Av. Central 567",
+    "nit_ci": "789123456",
+    "estado": 0
+  }
+]

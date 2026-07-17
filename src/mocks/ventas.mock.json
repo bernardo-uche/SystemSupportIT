@@ -1,0 +1,75 @@
+[
+  {
+    "id_venta": 1,
+    "fecha": "2026-01-10",
+    "metodo_pago": "Efectivo",
+    "observacion": "Venta de SSD",
+    "total": 85.0,
+    "cliente": { "id_cliente": 1, "nombre": "Empresa", "apellido": "ABC" },
+    "vendedor": { "id_usuario": 5, "nombre": "Luis Fernández" },
+    "detalle": [
+      { "id_detalle_venta": 1, "repuesto": "SSD 500GB", "cantidad": 1, "precio_unitario": 85.0, "subtotal": 85.0 }
+    ]
+  },
+  {
+    "id_venta": 2,
+    "fecha": "2026-01-12",
+    "metodo_pago": "Transferencia",
+    "observacion": "Venta de batería",
+    "total": 120.0,
+    "cliente": { "id_cliente": 2, "nombre": "María", "apellido": "López" },
+    "vendedor": { "id_usuario": 5, "nombre": "Luis Fernández" },
+    "detalle": [
+      { "id_detalle_venta": 2, "repuesto": "Batería HP Pavilion", "cantidad": 1, "precio_unitario": 120.0, "subtotal": 120.0 }
+    ]
+  },
+  {
+    "id_venta": 3,
+    "fecha": "2026-01-15",
+    "metodo_pago": "Tarjeta",
+    "observacion": "Venta múltiple",
+    "total": 185.0,
+    "cliente": { "id_cliente": 3, "nombre": "Tecnología", "apellido": "XYZ" },
+    "vendedor": { "id_usuario": 5, "nombre": "Luis Fernández" },
+    "detalle": [
+      { "id_detalle_venta": 3, "repuesto": "Batería HP Pavilion", "cantidad": 1, "precio_unitario": 120.0, "subtotal": 120.0 },
+      { "id_detalle_venta": 4, "repuesto": "RAM 8GB DDR4", "cantidad": 1, "precio_unitario": 65.0, "subtotal": 65.0 }
+    ]
+  },
+  {
+    "id_venta": 4,
+    "fecha": "2026-01-18",
+    "metodo_pago": "Efectivo",
+    "observacion": "Venta de RAM",
+    "total": 65.0,
+    "cliente": { "id_cliente": 4, "nombre": "Pedro", "apellido": "Ramírez" },
+    "vendedor": { "id_usuario": 5, "nombre": "Luis Fernández" },
+    "detalle": [
+      { "id_detalle_venta": 5, "repuesto": "RAM 8GB DDR4", "cantidad": 1, "precio_unitario": 65.0, "subtotal": 65.0 }
+    ]
+  },
+  {
+    "id_venta": 5,
+    "fecha": "2026-01-20",
+    "metodo_pago": "Transferencia",
+    "observacion": "Venta de cargadores",
+    "total": 110.0,
+    "cliente": { "id_cliente": 5, "nombre": "Consultora", "apellido": "Sistemas" },
+    "vendedor": { "id_usuario": 5, "nombre": "Luis Fernández" },
+    "detalle": [
+      { "id_detalle_venta": 6, "repuesto": "Cargador HP 65W", "cantidad": 2, "precio_unitario": 55.0, "subtotal": 110.0 }
+    ]
+  },
+  {
+    "id_venta": 6,
+    "fecha": "2026-01-22",
+    "metodo_pago": "Efectivo",
+    "observacion": "Venta de ventilador",
+    "total": 35.0,
+    "cliente": { "id_cliente": 6, "nombre": "Juan", "apellido": "Mendoza" },
+    "vendedor": { "id_usuario": 5, "nombre": "Luis Fernández" },
+    "detalle": [
+      { "id_detalle_venta": 7, "repuesto": "Ventilador HP", "cantidad": 1, "precio_unitario": 35.0, "subtotal": 35.0 }
+    ]
+  }
+]

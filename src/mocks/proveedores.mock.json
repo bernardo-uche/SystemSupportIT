@@ -1,0 +1,42 @@
+[
+  {
+    "id_proveedor": 1,
+    "nombre": "Importadora Global SA",
+    "nit": "123456789",
+    "departamento": "La Paz",
+    "direccion": "Av. Las Americas 123",
+    "correo": "ventas@importadora.com",
+    "celular": "77711111",
+    "estado": 1
+  },
+  {
+    "id_proveedor": 2,
+    "nombre": "Tecnología Total",
+    "nit": "987654321",
+    "departamento": "Santa Cruz",
+    "direccion": "Calle 21 #456",
+    "correo": "info@tecnologiatotal.com",
+    "celular": "77722222",
+    "estado": 1
+  },
+  {
+    "id_proveedor": 3,
+    "nombre": "Repuestos Express",
+    "nit": "456789123",
+    "departamento": "Cochabamba",
+    "direccion": "Av. Libertador 789",
+    "correo": "contacto@repuestosexpress.com",
+    "celular": "77733333",
+    "estado": 1
+  },
+  {
+    "id_proveedor": 4,
+    "nombre": "Distribuidora Central",
+    "nit": "789123456",
+    "departamento": "La Paz",
+    "direccion": "Zona Sur 101",
+    "correo": "distribuidora@central.com",
+    "celular": "77744444",
+    "estado": 0
+  }
+]

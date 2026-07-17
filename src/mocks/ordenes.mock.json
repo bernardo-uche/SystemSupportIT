@@ -1,0 +1,62 @@
+[
+  {
+    "id_orden": 1,
+    "fecha_ingreso": "2026-01-10",
+    "fecha_entrega": "2026-01-15",
+    "problema_reportado": "Equipo no enciende",
+    "costo": 150.0,
+    "estado": "finalizada",
+    "cliente": { "id_cliente": 1, "nombre": "Empresa", "apellido": "ABC" },
+    "personal": { "id_personal": 1, "nombre": "Juan", "apellido": "Pérez" }
+  },
+  {
+    "id_orden": 2,
+    "fecha_ingreso": "2026-01-12",
+    "fecha_entrega": "2026-01-18",
+    "problema_reportado": "Pantalla con líneas verticales",
+    "costo": 200.0,
+    "estado": "en_proceso",
+    "cliente": { "id_cliente": 2, "nombre": "María", "apellido": "López" },
+    "personal": { "id_personal": 2, "nombre": "María", "apellido": "González" }
+  },
+  {
+    "id_orden": 3,
+    "fecha_ingreso": "2026-01-15",
+    "fecha_entrega": "2026-01-20",
+    "problema_reportado": "Batería no retiene carga",
+    "costo": 100.0,
+    "estado": "pendiente",
+    "cliente": { "id_cliente": 3, "nombre": "Tecnología", "apellido": "XYZ" },
+    "personal": { "id_personal": 1, "nombre": "Juan", "apellido": "Pérez" }
+  },
+  {
+    "id_orden": 4,
+    "fecha_ingreso": "2026-01-18",
+    "fecha_entrega": "2026-01-25",
+    "problema_reportado": "Teclado no funciona",
+    "costo": 120.0,
+    "estado": "pendiente",
+    "cliente": { "id_cliente": 4, "nombre": "Pedro", "apellido": "Ramírez" },
+    "personal": { "id_personal": 3, "nombre": "Carlos", "apellido": "Rodríguez" }
+  },
+  {
+    "id_orden": 5,
+    "fecha_ingreso": "2026-01-20",
+    "fecha_entrega": "2026-01-28",
+    "problema_reportado": "Sistema operativo no arranca",
+    "costo": 180.0,
+    "estado": "Anulado",
+    "cliente": { "id_cliente": 5, "nombre": "Consultora", "apellido": "Sistemas" },
+    "personal": { "id_personal": 2, "nombre": "María", "apellido": "González" }
+  },
+  {
+    "id_orden": 6,
+    "fecha_ingreso": "2026-01-22",
+    "fecha_entrega": "2026-01-30",
+    "problema_reportado": "Sobrecalentamiento",
+    "costo": 90.0,
+    "estado": "pendiente",
+    "cliente": { "id_cliente": 6, "nombre": "Juan", "apellido": "Mendoza" },
+    "personal": { "id_personal": 4, "nombre": "Ana", "apellido": "Martínez" }
+  }
+]

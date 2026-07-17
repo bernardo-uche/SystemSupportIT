@@ -1,0 +1,101 @@
+[
+  {
+    "id_repuesto": 1,
+    "nombre": "Batería HP Pavilion",
+    "descripcion": "Batería original 11.1V 4400mAh",
+    "precio_venta": 120.0,
+    "stock": 15,
+    "marca": "HP",
+    "codigo": "BAT-HP-001",
+    "categoria": { "id_categoria": 1, "nombre": "Baterías" },
+    "estado": 1
+  },
+  {
+    "id_repuesto": 2,
+    "nombre": "Batería Dell Latitude",
+    "descripcion": "Batería 14.8V 6600mAh",
+    "precio_venta": 150.0,
+    "stock": 10,
+    "marca": "Dell",
+    "codigo": "BAT-DELL-001",
+    "categoria": { "id_categoria": 1, "nombre": "Baterías" },
+    "estado": 1
+  },
+  {
+    "id_repuesto": 3,
+    "nombre": "Pantalla 15.6\" LCD",
+    "descripcion": "Pantalla HD 1366x768",
+    "precio_venta": 180.0,
+    "stock": 8,
+    "marca": "LG",
+    "codigo": "PAN-HP-001",
+    "categoria": { "id_categoria": 2, "nombre": "Pantallas" },
+    "estado": 1
+  },
+  {
+    "id_repuesto": 4,
+    "nombre": "SSD 500GB",
+    "descripcion": "Disco sólido SATA III",
+    "precio_venta": 85.0,
+    "stock": 25,
+    "marca": "Crucial",
+    "codigo": "SSD-500-001",
+    "categoria": { "id_categoria": 3, "nombre": "Discos Duros" },
+    "estado": 1
+  },
+  {
+    "id_repuesto": 5,
+    "nombre": "HDD 1TB",
+    "descripcion": "Disco duro 7200RPM",
+    "precio_venta": 70.0,
+    "stock": 3,
+    "marca": "WD",
+    "codigo": "HDD-1TB-001",
+    "categoria": { "id_categoria": 3, "nombre": "Discos Duros" },
+    "estado": 1
+  },
+  {
+    "id_repuesto": 6,
+    "nombre": "RAM 8GB DDR4",
+    "descripcion": "Módulo 2666MHz",
+    "precio_venta": 65.0,
+    "stock": 20,
+    "marca": "Kingston",
+    "codigo": "RAM-8GB-001",
+    "categoria": { "id_categoria": 4, "nombre": "Memorias RAM" },
+    "estado": 1
+  },
+  {
+    "id_repuesto": 7,
+    "nombre": "Teclado MacBook",
+    "descripcion": "Teclado retroiluminado",
+    "precio_venta": 90.0,
+    "stock": 2,
+    "marca": "Apple",
+    "codigo": "TEC-MAC-001",
+    "categoria": { "id_categoria": 5, "nombre": "Teclados" },
+    "estado": 1
+  },
+  {
+    "id_repuesto": 8,
+    "nombre": "Cargador HP 65W",
+    "descripcion": "Cargador USB-C",
+    "precio_venta": 55.0,
+    "stock": 18,
+    "marca": "HP",
+    "codigo": "CAR-HP-001",
+    "categoria": { "id_categoria": 6, "nombre": "Cargadores" },
+    "estado": 1
+  },
+  {
+    "id_repuesto": 9,
+    "nombre": "Ventilador HP",
+    "descripcion": "Ventilador de CPU",
+    "precio_venta": 35.0,
+    "stock": 0,
+    "marca": "HP",
+    "codigo": "VENT-HP-001",
+    "categoria": { "id_categoria": 7, "nombre": "Ventiladores" },
+    "estado": 1
+  }
+]

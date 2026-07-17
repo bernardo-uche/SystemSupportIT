@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "nombre": "Ana Fernández",
+    "email": "admin@sistema.com",
+    "password": "admin123",
+    "rol": {
+      "id": 1,
+      "nombre": "administrador"
+    },
+    "avatarIniciales": "AF",
+    "activo": true
+  },
+  {
+    "id": 2,
+    "nombre": "Luis Rojas",
+    "email": "supervisor@sistema.com",
+    "password": "super123",
+    "rol": {
+      "id": 2,
+      "nombre": "personal"
+    },
+    "avatarIniciales": "LR",
+    "activo": true
+  },
+  {
+    "id": 3,
+    "nombre": "Carla Mamani",
+    "email": "usuario@sistema.com",
+    "password": "user123",
+    "rol": {
+      "id": 3,
+      "nombre": "personal"
+    },
+    "avatarIniciales": "CM",
+    "activo": true
+  },
+  {
+    "id": 4,
+    "nombre": "Jorge Quiroga",
+    "email": "inactivo@sistema.com",
+    "password": "user123",
+    "rol": {
+      "id": 3,
+      "nombre": "administrador"
+    },
+    "avatarIniciales": "JQ",
+    "activo": false
+  }
+]
