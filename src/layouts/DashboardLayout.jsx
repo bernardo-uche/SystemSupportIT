@@ -2,15 +2,63 @@ import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 
-const NAV_ITEMS = [
-  { to: "/dashboard", label: "Inicio", icon: "🏠", roles: null },
-  { to: "/dashboard/clientes", label: "Clientes", icon: "🧑‍💼", roles: null },
-  { to: "/dashboard/ordenes", label: "Órdenes de servicio", icon: "🛠️", roles: null },
-  { to: "/dashboard/repuestos", label: "Repuestos", icon: "🔧", roles: null },
-  { to: "/dashboard/ventas", label: "Ventas", icon: "🧾", roles: null },
-  { to: "/dashboard/proveedores", label: "Proveedores", icon: "🚚", roles: ["administrador", "supervisor"] },
-  { to: "/dashboard/usuarios", label: "Usuarios", icon: "👥", roles: ["administrador"] },
-  { to: "/dashboard/reportes", label: "Reportes", icon: "📊", roles: ["administrador", "supervisor"] },
+const RUTA_PENDIENTE = "/dashboard/proximamente";
+
+const NAV_SECTIONS = [
+  {
+    titulo: null, // sin encabezado, siempre visible arriba de todo
+    items: [
+      { label: "Inicio", to: "/dashboard", icon: "🏠", roles: null, estado: "listo" },
+    ],
+  },
+  {
+    titulo: "Servicio técnico",
+    items: [
+      { label: "Clientes", to: "/dashboard/clientes", icon: "🧑‍💼", roles: null, estado: "listo" },
+      { label: "Órdenes de servicio", to: "/dashboard/ordenes", icon: "🛠️", roles: null, estado: "listo" },
+      { label: "Equipos", to: "equipos", icon: "💻", roles: null, estado: "pendiente" },
+      { label: "Personal", to: "personal", icon: "👨‍🔧", roles: ["administrador", "supervisor"], estado: "pendiente" },
+    ],
+  },
+  {
+    titulo: "Ventas",
+    items: [
+      { label: "Repuestos", to: "/dashboard/repuestos", icon: "🔧", roles: null, estado: "listo" },
+      { label: "Ventas", to: "/dashboard/ventas", icon: "🧾", roles: null, estado: "listo" },
+    ],
+  },
+  {
+    titulo: "Compras",
+    items: [
+      { label: "Proveedores", to: "/dashboard/proveedores", icon: "🚚", roles: ["administrador", "supervisor"], estado: "listo" },
+      { label: "Compras", to: "/dashboard/compras", icon: "📦", roles: ["administrador", "supervisor"], estado: "listo" },
+      { label: "Ofertas", to: "ofertas", icon: "🏷️", roles: ["administrador", "supervisor"], estado: "pendiente" },
+      { label: "Cotizaciones", to: "cotizaciones", icon: "📄", roles: null, estado: "pendiente" },
+    ],
+  },
+  {
+    titulo: "Mantenimiento",
+    items: [
+      { label: "Herramientas", to: "herramientas", icon: "🧰", roles: ["administrador", "supervisor"], estado: "pendiente" },
+      { label: "Mantenimientos", to: "mantenimientos", icon: "🔩", roles: ["administrador", "supervisor"], estado: "pendiente" },
+      { label: "Trabajos de mantenimiento", to: "trabajos", icon: "📋", roles: null, estado: "pendiente" },
+    ],
+  },
+  {
+    titulo: "Inventario",
+    items: [
+      { label: "Inventario", to: "inventario", icon: "📊", roles: ["administrador", "supervisor"], estado: "pendiente" },
+      { label: "Kardex", to: "kardex", icon: "📈", roles: ["administrador", "supervisor"], estado: "pendiente" },
+      { label: "Inventario físico", to: "inventario-fisico", icon: "🧮", roles: ["administrador"], estado: "pendiente" },
+    ],
+  },
+  {
+    titulo: "Administración",
+    items: [
+      { label: "Usuarios", to: "/dashboard/usuarios", icon: "👥", roles: ["administrador"], estado: "listo" },
+      { label: "Reportes", to: "/dashboard/reportes", icon: "📊", roles: ["administrador", "supervisor"], estado: "listo" },
+    ],
+  },
 ];
 
 export default function DashboardLayout() {
@@ -23,13 +71,14 @@ export default function DashboardLayout() {
     navigate("/login", { replace: true });
   }
 
-  const itemsVisibles = NAV_ITEMS.filter(
-    (item) => !item.roles || tieneRol(...item.roles)
-  );
+  // Filtra por rol, y descarta secciones que se quedan sin ningún ítem visible
+  const seccionesVisibles = NAV_SECTIONS.map((seccion) => ({
+    ...seccion,
+    items: seccion.items.filter((item) => !item.roles || tieneRol(...item.roles)),
+  })).filter((seccion) => seccion.items.length > 0);
 
   return (
-    <div className="min-h-screen bg-ink-50 lg:grid lg:grid-cols-[16rem_1fr]">
-      {/* Overlay móvil */}
+    <div className="min-h-screen bg-ink-50">
       {sidebarAbierto && (
         <button
           aria-label="Cerrar menú"
@@ -38,50 +87,47 @@ export default function DashboardLayout() {
         />
       )}
 
-      {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 transform bg-ink-900 text-white transition-transform duration-200 ease-out lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 w-64 transform overflow-y-hidden bg-ink-900 text-white transition-transform duration-200 ease-out ${
           sidebarAbierto ? "translate-x-0" : "-translate-x-full"
-        }`}
+        } lg:translate-x-0`}
       >
-        <div className="flex h-16 items-center gap-2 px-6 font-[var(--font-display)] text-lg font-semibold">
+        <div className="sticky top-0 z-10 flex h-16 items-center gap-2 bg-ink-900 px-6 text-lg font-semibold">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500">
             S
           </span>
-          Service Tickets
+          Sistema
         </div>
 
-        <nav className="mt-4 flex flex-col gap-1 px-3">
-          {itemsVisibles.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === "/dashboard"}
-              onClick={() => setSidebarAbierto(false)}
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
-                  isActive
-                    ? "bg-brand-600 text-white"
-                    : "text-ink-100/70 hover:bg-white/5 hover:text-white"
-                }`
-              }
-            >
-              <span aria-hidden>{item.icon}</span>
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
+        <div className="flex h-[calc(100vh-4rem)] flex-col overflow-y-auto pb-4">
+          <nav className="mt-2 flex-1 flex flex-col gap-1 px-3">
+            {seccionesVisibles.map((seccion, index) => (
+              <div key={seccion.titulo || `sin-titulo-${index}`} className="mt-3 first:mt-0">
+                {seccion.titulo && (
+                  <p className="px-3 pb-1.5 text-[11px] font-semibold uppercase tracking-wide text-ink-100/40">
+                    {seccion.titulo}
+                  </p>
+                )}
 
-        <div className="absolute bottom-0 w-64 border-t border-white/10 p-4">
-          <p className="text-xs uppercase tracking-wide text-ink-100/40">
-            Rol actual
-          </p>
-          <p className="text-sm font-medium capitalize">{usuario?.rol?.nombre}</p>
+                {seccion.items.map((item) => (
+                  <ItemMenu
+                    key={item.label}
+                    item={item}
+                    onNavegar={() => setSidebarAbierto(false)}
+                  />
+                ))}
+              </div>
+            ))}
+          </nav>
+
+          <div className="mt-auto border-t border-white/10 bg-ink-900 p-4">
+            <p className="text-xs uppercase tracking-wide text-ink-100/40">Rol actual</p>
+            <p className="text-sm font-medium capitalize">{usuario?.rol?.nombre}</p>
+          </div>
         </div>
       </aside>
 
-      {/* Columna principal */}
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-screen flex-col lg:ml-64">
         <header className="flex h-16 items-center justify-between border-b border-ink-100 bg-white px-4 sm:px-6">
           <button
             onClick={() => setSidebarAbierto(true)}
@@ -92,7 +138,7 @@ export default function DashboardLayout() {
           </button>
 
           <div className="hidden text-sm text-ink-400 lg:block">
-            
+            Panel interno · datos ficticios mientras el backend no esté conectado
           </div>
 
           <div className="flex items-center gap-3">
@@ -117,5 +163,37 @@ export default function DashboardLayout() {
         </main>
       </div>
     </div>
+  );
+}
+
+function ItemMenu({ item, onNavegar }) {
+  const esPendiente = item.estado === "pendiente";
+  const destino = esPendiente ? RUTA_PENDIENTE : item.to;
+
+  return (
+    <NavLink
+      to={destino}
+      state={esPendiente ? { nombre: item.label } : undefined}
+      end={item.to === "/dashboard"}
+      onClick={onNavegar}
+      className={({ isActive }) =>
+        `flex items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+          isActive && !esPendiente
+            ? "bg-brand-600 text-white"
+            : "text-ink-100/70 hover:bg-white/5 hover:text-white"
+        }`
+      }
+    >
+      <span className="flex items-center gap-3">
+        <span aria-hidden>{item.icon}</span>
+        {item.label}
+      </span>
+
+      {esPendiente && (
+        <span className="rounded-full bg-amber-400/15 px-2 py-0.5 text-[10px] font-semibold text-amber-300">
+          Pendiente
+        </span>
+      )}
+    </NavLink>
   );
 }

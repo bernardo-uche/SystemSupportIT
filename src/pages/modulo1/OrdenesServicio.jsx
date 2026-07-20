@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { listarOrdenes } from "../../services/ordenService";
+import { listarOrdenes } from "../../services/Modulo1";
 
 const ESTILOS_ESTADO = {
   pendiente: "bg-amber-50 text-amber-700",

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { listarProveedores, crearProveedor } from "../services/proveedorService";
+import { listarProveedores, crearProveedor } from "../../services/Modulo2";
 
 const FORMULARIO_VACIO = { nombre: "", nit: "", correo: "", celular: "", departamento: "" };
 

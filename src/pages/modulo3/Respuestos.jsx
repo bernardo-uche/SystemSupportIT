@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { listarRepuestos } from "../services/repuestoService";
+import { listarRepuestos } from "../../services/Modulo3";
 
 const STOCK_MINIMO_ALERTA = 5;
 

@@ -1,4 +1,4 @@
-import proveedoresMock from "../mocks/proveedores.mock.json";
+import proveedoresMock from "../../mocks/Modulo2/proveedores.mock.json";
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK !== "false";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";

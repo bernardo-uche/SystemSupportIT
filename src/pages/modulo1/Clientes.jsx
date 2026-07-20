@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { listarClientes } from "../../services/Modulo1/clienteService";
+import { listarClientes } from "../../services/Modulo1";
 
 export default function Clientes() {
   const [clientes, setClientes] = useState([]);

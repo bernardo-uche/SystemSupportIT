@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { listarVentas } from "../services/ventaService";
+import { listarVentas } from "../../services/Modulo3";
 
 export default function Ventas() {
   const [ventas, setVentas] = useState([]);

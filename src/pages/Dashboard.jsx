@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
-import { listarClientes } from "../services/Modulo1/clienteService";
-import { listarOrdenes } from "../services/ordenService";
+import { listarClientes, listarOrdenes } from "../services/Modulo1";
 
 const ETIQUETAS_ESTADO = {
   pendiente: "Pendiente",

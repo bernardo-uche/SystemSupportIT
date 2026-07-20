@@ -1,0 +1,76 @@
+[
+  {
+    "id_compra": 1,
+    "n_documento": "COMP-001",
+    "fecha": "2026-01-05",
+    "forma_pago": "Transferencia",
+    "observacion": "Compra de baterías y SSD",
+    "total_compra": 380.0,
+    "proveedor": { "id_proveedor": 1, "nombre": "Importadora Global SA" },
+    "detalle": [
+      { "id_detalle_compra": 1, "repuesto": "Batería HP Pavilion", "cantidad": 2, "precio": 80.0, "sub_total": 160.0 },
+      { "id_detalle_compra": 2, "repuesto": "SSD 500GB", "cantidad": 4, "precio": 55.0, "sub_total": 220.0 }
+    ]
+  },
+  {
+    "id_compra": 2,
+    "n_documento": "COMP-002",
+    "fecha": "2026-01-08",
+    "forma_pago": "Efectivo",
+    "observacion": "Compra de pantallas",
+    "total_compra": 240.0,
+    "proveedor": { "id_proveedor": 2, "nombre": "Tecnología Total" },
+    "detalle": [
+      { "id_detalle_compra": 3, "repuesto": "Pantalla 15.6\" LCD", "cantidad": 2, "precio": 120.0, "sub_total": 240.0 }
+    ]
+  },
+  {
+    "id_compra": 3,
+    "n_documento": "COMP-003",
+    "fecha": "2026-01-12",
+    "forma_pago": "Credito",
+    "observacion": "Compra de RAM y cargadores",
+    "total_compra": 280.0,
+    "proveedor": { "id_proveedor": 3, "nombre": "Repuestos Express" },
+    "detalle": [
+      { "id_detalle_compra": 4, "repuesto": "RAM 8GB DDR4", "cantidad": 2, "precio": 40.0, "sub_total": 80.0 },
+      { "id_detalle_compra": 5, "repuesto": "Cargador HP 65W", "cantidad": 3, "precio": 35.0, "sub_total": 105.0 }
+    ]
+  },
+  {
+    "id_compra": 4,
+    "n_documento": "COMP-004",
+    "fecha": "2026-01-15",
+    "forma_pago": "Transferencia",
+    "observacion": "Compra de discos duros",
+    "total_compra": 450.0,
+    "proveedor": { "id_proveedor": 4, "nombre": "Distribuidora Central" },
+    "detalle": [
+      { "id_detalle_compra": 6, "repuesto": "HDD 1TB", "cantidad": 5, "precio": 45.0, "sub_total": 225.0 }
+    ]
+  },
+  {
+    "id_compra": 5,
+    "n_documento": "COMP-005",
+    "fecha": "2026-01-18",
+    "forma_pago": "Efectivo",
+    "observacion": "Compra de teclados Apple",
+    "total_compra": 180.0,
+    "proveedor": { "id_proveedor": 1, "nombre": "Importadora Global SA" },
+    "detalle": [
+      { "id_detalle_compra": 7, "repuesto": "Teclado MacBook", "cantidad": 2, "precio": 60.0, "sub_total": 120.0 }
+    ]
+  },
+  {
+    "id_compra": 6,
+    "n_documento": "COMP-006",
+    "fecha": "2026-01-20",
+    "forma_pago": "Transferencia",
+    "observacion": "Compra de ventiladores",
+    "total_compra": 110.0,
+    "proveedor": { "id_proveedor": 2, "nombre": "Tecnología Total" },
+    "detalle": [
+      { "id_detalle_compra": 8, "repuesto": "Ventilador HP", "cantidad": 5, "precio": 22.0, "sub_total": 110.0 }
+    ]
+  }
+]

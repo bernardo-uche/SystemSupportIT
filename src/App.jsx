@@ -6,11 +6,10 @@ import Reportes from "./pages/Reportes.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import DashboardLayout from "./layouts/DashboardLayout.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
-import Clientes from "./pages/Clientes/Clientes.jsx";
-import Repuestos from "./pages/Respuestos.jsx";
-import Ventas from "./pages/Ventas.jsx";
-import Proveedores from "./pages/Proveedores.jsx";
-import OrdenesServicio from "./pages/OrdenesServicio/OrdenesServicio.jsx";
+import { Clientes, OrdenesServicio } from "./pages/modulo1";
+import { Compras, Proveedores } from "./pages/modulo2";
+import { Repuestos, Ventas } from "./pages/modulo3";
+import EnConstruccion from "./pages/EnConstruccion.jsx";
 
 export default function App() {
   return (
@@ -32,7 +31,11 @@ export default function App() {
         <Route path="ventas" element={<Ventas />} />
         <Route path="clientes" element={<Clientes />} />
         <Route path="repuestos" element={<Repuestos />} />
+        <Route path="compras" element={<Compras />} />
         <Route path="ordenes" element={<OrdenesServicio />} />
+
+
+        <Route path="proximamente" element={<EnConstruccion />} />
         <Route
           path="usuarios"
           element={
