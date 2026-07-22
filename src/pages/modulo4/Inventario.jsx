@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { listarInventario, actualizarUbicacionInventario } from "../../services/Modulo4";
+import Modal from "../../components/Modal.jsx";
 
 export default function Inventario() {
   const [inventario, setInventario] = useState([]);
@@ -70,64 +71,62 @@ export default function Inventario() {
       </div>
 
       {itemEditando && (
-        <form
-          onSubmit={handleGuardar}
-          className="mt-4 rounded-xl border border-brand-200 bg-white p-5 shadow-sm space-y-3"
+        <Modal
+          titulo={`Ajustar Almacén: ${itemEditando.repuesto?.nombre}`}
+          onCerrar={() => setItemEditando(null)}
         >
-          <h3 className="text-sm font-semibold text-ink-800 border-b border-ink-100 pb-2">
-            Ajustar Niveles y Ubicación: <span className="text-brand-600">{itemEditando.repuesto?.nombre}</span>
-          </h3>
+          <form onSubmit={handleGuardar} className="space-y-4">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <div className="sm:col-span-3">
+                <label className="mb-1 block text-xs font-medium text-ink-800">Ubicación en Almacén</label>
+                <input
+                  type="text"
+                  value={ubicacionForm}
+                  onChange={(e) => setUbicacionForm(e.target.value)}
+                  placeholder="ej. Estante A-01"
+                  className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-medium text-ink-800">Stock Mínimo</label>
+                <input
+                  type="number"
+                  min="0"
+                  value={stockMinForm}
+                  onChange={(e) => setStockMinForm(e.target.value)}
+                  className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="mb-1 block text-xs font-medium text-ink-800">Stock Máximo</label>
+                <input
+                  type="number"
+                  min="0"
+                  value={stockMaxForm}
+                  onChange={(e) => setStockMaxForm(e.target.value)}
+                  className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
+                />
+              </div>
+            </div>
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <div>
-              <label className="mb-1 block text-xs font-medium text-ink-800">Ubicación en Almacén</label>
-              <input
-                type="text"
-                value={ubicacionForm}
-                onChange={(e) => setUbicacionForm(e.target.value)}
-                placeholder="ej. Estante A-01"
-                className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
-              />
+            <div className="flex justify-end gap-2 pt-2 border-t border-ink-100">
+              <button
+                type="button"
+                onClick={() => setItemEditando(null)}
+                className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                disabled={guardando}
+                className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
+              >
+                {guardando ? "Guardando…" : "Actualizar Ubicación"}
+              </button>
             </div>
-            <div>
-              <label className="mb-1 block text-xs font-medium text-ink-800">Stock Mínimo (Alerta)</label>
-              <input
-                type="number"
-                min="0"
-                value={stockMinForm}
-                onChange={(e) => setStockMinForm(e.target.value)}
-                className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
-              />
-            </div>
-            <div>
-              <label className="mb-1 block text-xs font-medium text-ink-800">Stock Máximo</label>
-              <input
-                type="number"
-                min="0"
-                value={stockMaxForm}
-                onChange={(e) => setStockMaxForm(e.target.value)}
-                className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
-              />
-            </div>
-          </div>
-
-          <div className="flex gap-2 pt-2">
-            <button
-              type="submit"
-              disabled={guardando}
-              className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
-            >
-              {guardando ? "Guardando…" : "Actualizar"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setItemEditando(null)}
-              className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50"
-            >
-              Cancelar
-            </button>
-          </div>
-        </form>
+          </form>
+        </Modal>
       )}
 
       <div className="mt-5 flex items-center justify-between gap-4">

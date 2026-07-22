@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { listarCompras, crearCompra, anularCompra, listarProveedores } from "../../services/Modulo2";
 import { listarRepuestos } from "../../services/Modulo3";
 import TablaExpandible from "../../components/TablaExpandible.jsx";
+import Modal from "../../components/Modal.jsx";
 
 const FORMULARIO_COMPRA_VACIO = {
   id_proveedor: "",
@@ -140,180 +141,175 @@ export default function Compras() {
           </p>
         </div>
         <button
-          onClick={() => setMostrarFormulario((v) => !v)}
+          onClick={() => setMostrarFormulario(true)}
           className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
         >
-          {mostrarFormulario ? "Cancelar" : "+ Registrar Compra"}
+          + Registrar Compra
         </button>
       </div>
 
       {mostrarFormulario && (
-        <form
-          onSubmit={handleSubmit}
-          className="mt-4 rounded-xl border border-brand-200 bg-white p-5 shadow-sm space-y-4"
-        >
-          <h3 className="text-sm font-semibold text-ink-800 border-b border-ink-100 pb-2">
-            Formulario de Nueva Compra
-          </h3>
-
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <div>
-              <label className="mb-1 block text-xs font-medium text-ink-800">Proveedor</label>
-              <select
-                value={formulario.id_proveedor}
-                onChange={(e) => setFormulario((p) => ({ ...p, id_proveedor: e.target.value }))}
-                required
-                className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
-              >
-                <option value="">-- Seleccionar Proveedor --</option>
-                {proveedores.map((prov) => (
-                  <option key={prov.id_proveedor} value={prov.id_proveedor}>
-                    {prov.nombre} (NIT: {prov.nit})
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="mb-1 block text-xs font-medium text-ink-800">N° Documento / Factura</label>
-              <input
-                type="text"
-                placeholder="ej. COMP-007"
-                value={formulario.n_documento}
-                onChange={(e) => setFormulario((p) => ({ ...p, n_documento: e.target.value }))}
-                required
-                className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
-              />
-            </div>
-
-            <div>
-              <label className="mb-1 block text-xs font-medium text-ink-800">Forma de Pago</label>
-              <select
-                value={formulario.forma_pago}
-                onChange={(e) => setFormulario((p) => ({ ...p, forma_pago: e.target.value }))}
-                className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
-              >
-                <option value="Efectivo">Efectivo</option>
-                <option value="Transferencia">Transferencia</option>
-                <option value="Credito">Crédito</option>
-                <option value="Tarjeta">Tarjeta</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Selector de repuestos para agregar a la tabla */}
-          <div className="rounded-lg bg-ink-50 p-3.5 border border-ink-100">
-            <p className="text-xs font-semibold text-ink-800 mb-2">Agregar Detalle de Repuestos</p>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-4 items-end">
-              <div className="sm:col-span-2">
-                <label className="mb-1 block text-[11px] font-medium text-ink-600">Repuesto</label>
+        <Modal titulo="Registrar Nueva Compra" onCerrar={() => setMostrarFormulario(false)}>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <div>
+                <label className="mb-1 block text-xs font-medium text-ink-800">Proveedor</label>
                 <select
-                  value={lineaTemp.id_repuesto}
-                  onChange={(e) => {
-                    const idSelected = e.target.value;
-                    const found = repuestos.find((r) => String(r.id_repuesto) === String(idSelected));
-                    setLineaTemp((prev) => ({
-                      ...prev,
-                      id_repuesto: idSelected,
-                      precio: found ? found.precio_compra || 0 : 0,
-                    }));
-                  }}
-                  className="w-full rounded-md border border-ink-200 bg-white px-3 py-1.5 text-sm outline-none focus:border-brand-500"
+                  value={formulario.id_proveedor}
+                  onChange={(e) => setFormulario((p) => ({ ...p, id_proveedor: e.target.value }))}
+                  required
+                  className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
                 >
-                  <option value="">-- Seleccionar Repuesto --</option>
-                  {repuestos.map((r) => (
-                    <option key={r.id_repuesto} value={r.id_repuesto}>
-                      {r.nombre} ({r.codigo || r.marca}) - Precio Compra: Bs {r.precio_compra}
+                  <option value="">-- Seleccionar --</option>
+                  {proveedores.map((prov) => (
+                    <option key={prov.id_proveedor} value={prov.id_proveedor}>
+                      {prov.nombre}
                     </option>
                   ))}
                 </select>
               </div>
+
               <div>
-                <label className="mb-1 block text-[11px] font-medium text-ink-600">Cantidad</label>
+                <label className="mb-1 block text-xs font-medium text-ink-800">N° Factura / Doc</label>
                 <input
-                  type="number"
-                  min="1"
-                  value={lineaTemp.cantidad}
-                  onChange={(e) => setLineaTemp((prev) => ({ ...prev, cantidad: e.target.value }))}
-                  className="w-full rounded-md border border-ink-200 bg-white px-3 py-1.5 text-sm outline-none"
+                  type="text"
+                  placeholder="ej. COMP-007"
+                  value={formulario.n_documento}
+                  onChange={(e) => setFormulario((p) => ({ ...p, n_documento: e.target.value }))}
+                  required
+                  className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
                 />
               </div>
+
               <div>
+                <label className="mb-1 block text-xs font-medium text-ink-800">Forma de Pago</label>
+                <select
+                  value={formulario.forma_pago}
+                  onChange={(e) => setFormulario((p) => ({ ...p, forma_pago: e.target.value }))}
+                  className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
+                >
+                  <option value="Efectivo">Efectivo</option>
+                  <option value="Transferencia">Transferencia</option>
+                  <option value="Credito">Crédito</option>
+                  <option value="Tarjeta">Tarjeta</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Selector de repuestos para agregar a la tabla */}
+            <div className="rounded-lg bg-ink-50 p-3.5 border border-ink-100">
+              <p className="text-xs font-semibold text-ink-800 mb-2">Agregar Detalle de Repuestos</p>
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-4 items-end">
+                <div className="sm:col-span-2">
+                  <label className="mb-1 block text-[11px] font-medium text-ink-600">Repuesto</label>
+                  <select
+                    value={lineaTemp.id_repuesto}
+                    onChange={(e) => {
+                      const idSelected = e.target.value;
+                      const found = repuestos.find((r) => String(r.id_repuesto) === String(idSelected));
+                      setLineaTemp((prev) => ({
+                        ...prev,
+                        id_repuesto: idSelected,
+                        precio: found ? found.precio_compra || 0 : 0,
+                      }));
+                    }}
+                    className="w-full rounded-md border border-ink-200 bg-white px-3 py-1.5 text-sm outline-none focus:border-brand-500"
+                  >
+                    <option value="">-- Seleccionar --</option>
+                    {repuestos.map((r) => (
+                      <option key={r.id_repuesto} value={r.id_repuesto}>
+                        {r.nombre} (Bs {r.precio_compra})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="mb-1 block text-[11px] font-medium text-ink-600">Cantidad</label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={lineaTemp.cantidad}
+                    onChange={(e) => setLineaTemp((prev) => ({ ...prev, cantidad: e.target.value }))}
+                    className="w-full rounded-md border border-ink-200 bg-white px-3 py-1.5 text-sm outline-none"
+                  />
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    onClick={handleAgregarLinea}
+                    className="w-full rounded-md bg-brand-600 px-3 py-2 text-xs font-semibold text-white hover:bg-brand-700"
+                  >
+                    + Agregar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Tabla de detalle de la compra actual */}
+            <div className="overflow-x-auto rounded-lg border border-ink-100 max-h-40 overflow-y-auto">
+              <table className="w-full text-left text-xs">
+                <thead className="bg-ink-50 text-ink-600 border-b border-ink-100 sticky top-0">
+                  <tr>
+                    <th className="px-3 py-2">Repuesto</th>
+                    <th className="px-3 py-2">Cantidad</th>
+                    <th className="px-3 py-2">Precio Unit.</th>
+                    <th className="px-3 py-2">Subtotal</th>
+                    <th className="px-3 py-2 text-right">Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {formulario.detalles.length === 0 ? (
+                    <tr>
+                      <td colSpan={5} className="px-3 py-4 text-center text-ink-400">
+                        No se han agregado repuestos aún.
+                      </td>
+                    </tr>
+                  ) : (
+                    formulario.detalles.map((d) => (
+                      <tr key={d.id_detalle_compra} className="border-b border-ink-100 last:border-0">
+                        <td className="px-3 py-2 font-medium text-ink-900">{d.repuesto}</td>
+                        <td className="px-3 py-2 text-ink-700">{d.cantidad}</td>
+                        <td className="px-3 py-2 text-ink-700">Bs {d.precio.toFixed(2)}</td>
+                        <td className="px-3 py-2 font-semibold text-ink-900">Bs {d.sub_total.toFixed(2)}</td>
+                        <td className="px-3 py-2 text-right">
+                          <button
+                            type="button"
+                            onClick={() => handleQuitarLinea(d.id_detalle_compra)}
+                            className="text-red-600 hover:text-red-800 font-medium"
+                          >
+                            Quitar
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="flex items-center justify-between border-t border-ink-100 pt-3">
+              <div className="text-sm font-semibold text-ink-900">
+                Total Compra: <span className="text-brand-600 text-lg">Bs {totalCalculado.toFixed(2)}</span>
+              </div>
+              <div className="flex gap-2">
                 <button
                   type="button"
-                  onClick={handleAgregarLinea}
-                  className="w-full rounded-md bg-brand-600 px-3 py-2 text-xs font-semibold text-white hover:bg-brand-700"
+                  onClick={() => setMostrarFormulario(false)}
+                  className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50"
                 >
-                  + Agregar
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  disabled={guardando}
+                  className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
+                >
+                  {guardando ? "Registrando…" : "Confirmar Compra"}
                 </button>
               </div>
             </div>
-          </div>
-
-          {/* Tabla de detalle de la compra actual */}
-          <div className="overflow-x-auto rounded-lg border border-ink-100">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-ink-50 text-ink-600 border-b border-ink-100">
-                <tr>
-                  <th className="px-3 py-2">Repuesto</th>
-                  <th className="px-3 py-2">Cantidad</th>
-                  <th className="px-3 py-2">Precio Unitario</th>
-                  <th className="px-3 py-2">Subtotal</th>
-                  <th className="px-3 py-2 text-right">Acción</th>
-                </tr>
-              </thead>
-              <tbody>
-                {formulario.detalles.length === 0 ? (
-                  <tr>
-                    <td colSpan={5} className="px-3 py-4 text-center text-ink-400">
-                      No se han agregado repuestos aún.
-                    </td>
-                  </tr>
-                ) : (
-                  formulario.detalles.map((d) => (
-                    <tr key={d.id_detalle_compra} className="border-b border-ink-100 last:border-0">
-                      <td className="px-3 py-2 font-medium text-ink-900">{d.repuesto}</td>
-                      <td className="px-3 py-2 text-ink-700">{d.cantidad}</td>
-                      <td className="px-3 py-2 text-ink-700">Bs {d.precio.toFixed(2)}</td>
-                      <td className="px-3 py-2 font-semibold text-ink-900">Bs {d.sub_total.toFixed(2)}</td>
-                      <td className="px-3 py-2 text-right">
-                        <button
-                          type="button"
-                          onClick={() => handleQuitarLinea(d.id_detalle_compra)}
-                          className="text-red-600 hover:text-red-800 font-medium"
-                        >
-                          Quitar
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="flex items-center justify-between border-t border-ink-100 pt-3">
-            <div className="text-sm font-semibold text-ink-900">
-              Total Compra: <span className="text-brand-600 text-lg">Bs {totalCalculado.toFixed(2)}</span>
-            </div>
-            <div className="flex gap-2">
-              <button
-                type="submit"
-                disabled={guardando}
-                className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
-              >
-                {guardando ? "Registrando…" : "Confirmar Compra"}
-              </button>
-              <button
-                type="button"
-                onClick={() => setMostrarFormulario(false)}
-                className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50"
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </form>
+          </form>
+        </Modal>
       )}
 
       <div className="mt-5 flex items-center justify-between gap-4">
@@ -402,4 +398,4 @@ export default function Compras() {
       </div>
     </div>
   );
-}
+}

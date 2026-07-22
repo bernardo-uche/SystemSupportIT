@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { listarInventariosFisicos, registrarInventarioFisico, listarInventario } from "../../services/Modulo4";
+import Modal from "../../components/Modal.jsx";
 
 export default function InventarioFisico() {
   const [registros, setRegistros] = useState([]);
@@ -87,109 +88,104 @@ export default function InventarioFisico() {
           </p>
         </div>
         <button
-          onClick={() => setMostrarFormulario((v) => !v)}
+          onClick={() => setMostrarFormulario(true)}
           className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
         >
-          {mostrarFormulario ? "Cancelar" : "+ Registrar Conteo Físico"}
+          + Registrar Conteo Físico
         </button>
       </div>
 
       {mostrarFormulario && (
-        <form
-          onSubmit={handleSubmit}
-          className="mt-4 rounded-xl border border-brand-200 bg-white p-5 shadow-sm space-y-4"
-        >
-          <h3 className="text-sm font-semibold text-ink-800 border-b border-ink-100 pb-2">
-            Registrar Conteo de Inventario Físico
-          </h3>
+        <Modal titulo="Registrar Conteo Físico de Inventario" onCerrar={() => setMostrarFormulario(false)}>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <div className="sm:col-span-2">
+                <label className="mb-1 block text-xs font-medium text-ink-800">Repuesto / Artículo</label>
+                <select
+                  value={idInventarioSel}
+                  onChange={(e) => setIdInventarioSel(e.target.value)}
+                  required
+                  className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
+                >
+                  <option value="">-- Seleccionar Repuesto --</option>
+                  {inventario.map((item) => (
+                    <option key={item.id_inventario} value={item.id_inventario}>
+                      {item.repuesto?.nombre} (Ubicación: {item.ubicacion || "Sin Ubicación"}) - Stock Sistema: {item.repuesto?.stock_actual} u.
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <div className="sm:col-span-2">
-              <label className="mb-1 block text-xs font-medium text-ink-800">Repuesto / Artículo</label>
-              <select
-                value={idInventarioSel}
-                onChange={(e) => setIdInventarioSel(e.target.value)}
-                required
-                className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
-              >
-                <option value="">-- Seleccionar Repuesto para Conteo --</option>
-                {inventario.map((item) => (
-                  <option key={item.id_inventario} value={item.id_inventario}>
-                    {item.repuesto?.nombre} (Ubicación: {item.ubicacion || "Sin Ubicación"}) - Stock Sistema: {item.repuesto?.stock_actual} u.
-                  </option>
-                ))}
-              </select>
+              <div>
+                <label className="mb-1 block text-xs font-medium text-ink-800">Stock Contado</label>
+                <input
+                  type="number"
+                  min="0"
+                  value={stockContado}
+                  onChange={(e) => setStockContado(e.target.value)}
+                  required
+                  className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
+                />
+              </div>
             </div>
 
+            {itemSeleccionado && (
+              <div className="rounded-lg bg-ink-50 p-3 text-xs flex items-center justify-between border border-ink-100">
+                <div>
+                  <p><span className="font-semibold">Stock Sistema:</span> {stockSistema} u.</p>
+                  <p><span className="font-semibold">Stock Contado:</span> {stockContado} u.</p>
+                </div>
+                <div className="text-right">
+                  <p className="font-bold text-sm">
+                    Diferencia:{" "}
+                    <span className={diferencia < 0 ? "text-red-600" : diferencia > 0 ? "text-amber-600" : "text-green-600"}>
+                      {diferencia > 0 ? `+${diferencia}` : diferencia} u.
+                    </span>
+                  </p>
+                  <span
+                    className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                      resultadoCalculado === "CONFORME"
+                        ? "bg-green-100 text-green-700"
+                        : resultadoCalculado === "FALTANTE"
+                        ? "bg-red-100 text-red-700"
+                        : "bg-amber-100 text-amber-700"
+                    }`}
+                  >
+                    {resultadoCalculado}
+                  </span>
+                </div>
+              </div>
+            )}
+
             <div>
-              <label className="mb-1 block text-xs font-medium text-ink-800">Stock Contado Físicamente</label>
+              <label className="mb-1 block text-xs font-medium text-ink-800">Observaciones del Conteo</label>
               <input
-                type="number"
-                min="0"
-                value={stockContado}
-                onChange={(e) => setStockContado(e.target.value)}
-                required
+                type="text"
+                placeholder="ej. Una unidad rota o no localizada en estante"
+                value={observacion}
+                onChange={(e) => setObservacion(e.target.value)}
                 className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
               />
             </div>
-          </div>
 
-          {itemSeleccionado && (
-            <div className="rounded-lg bg-ink-50 p-3 text-xs flex items-center justify-between border border-ink-100">
-              <div>
-                <p><span className="font-semibold">Stock en Sistema:</span> {stockSistema} u.</p>
-                <p><span className="font-semibold">Stock Contado:</span> {stockContado} u.</p>
-              </div>
-              <div className="text-right">
-                <p className="font-bold text-sm">
-                  Diferencia:{" "}
-                  <span className={diferencia < 0 ? "text-red-600" : diferencia > 0 ? "text-amber-600" : "text-green-600"}>
-                    {diferencia > 0 ? `+${diferencia}` : diferencia} u.
-                  </span>
-                </p>
-                <span
-                  className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-bold ${
-                    resultadoCalculado === "CONFORME"
-                      ? "bg-green-100 text-green-700"
-                      : resultadoCalculado === "FALTANTE"
-                      ? "bg-red-100 text-red-700"
-                      : "bg-amber-100 text-amber-700"
-                  }`}
-                >
-                  {resultadoCalculado}
-                </span>
-              </div>
+            <div className="flex justify-end gap-2 pt-2 border-t border-ink-100">
+              <button
+                type="button"
+                onClick={() => setMostrarFormulario(false)}
+                className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                disabled={guardando}
+                className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
+              >
+                {guardando ? "Guardando…" : "Guardar Conteo"}
+              </button>
             </div>
-          )}
-
-          <div>
-            <label className="mb-1 block text-xs font-medium text-ink-800">Observaciones del Conteo</label>
-            <input
-              type="text"
-              placeholder="ej. Una unidad rota o no localizada en estante"
-              value={observacion}
-              onChange={(e) => setObservacion(e.target.value)}
-              className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
-            />
-          </div>
-
-          <div className="flex gap-2 pt-2">
-            <button
-              type="submit"
-              disabled={guardando}
-              className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
-            >
-              {guardando ? "Guardando…" : "Guardar Conteo"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setMostrarFormulario(false)}
-              className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50"
-            >
-              Cancelar
-            </button>
-          </div>
-        </form>
+          </form>
+        </Modal>
       )}
 
       <div className="mt-5 flex items-center justify-between gap-4">

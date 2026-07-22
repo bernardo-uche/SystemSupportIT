@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { listarClientes, crearCliente,actualizarCliente, eliminarCliente } from "../../services/Modulo1";
+import { listarClientes, crearCliente, actualizarCliente, eliminarCliente } from "../../services/Modulo1";
 import Modal from "../../components/Modal.jsx";
 import Campo from "../../components/Campo.jsx";
 
-const FORMULARIO_VACIO = { nombre: "", apellido: "", correo: "", telefono: "", direccion: "", nit_ci: "" };
+const FORMULARIO_VACIO = { nombre: "", apellido: "", correo: "", telefono: "", direccion: "", nit_ci: "", estado: 1 };
 
 export default function Clientes() {
   const [clientes, setClientes] = useState([]);
@@ -43,6 +43,7 @@ export default function Clientes() {
       telefono: cliente.telefono || "",
       direccion: cliente.direccion || "",
       nit_ci: cliente.nit_ci,
+      estado: cliente.estado !== undefined ? Number(cliente.estado) : 1,
     });
     setModalAbierto(true);
   }
@@ -93,7 +94,7 @@ export default function Clientes() {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold text-ink-900">Clientes</h1>
-          <p className="mt-1 text-sm text-ink-400">Conectado a la API del Módulo 1.</p>
+          <p className="mt-1 text-sm text-ink-400">Directorio de clientes registrados.</p>
         </div>
         <div className="flex gap-2">
           <input
@@ -141,7 +142,7 @@ export default function Clientes() {
             {!cargando &&
               clientesFiltrados.map((c) => (
                 <tr key={c.id_cliente} className="border-b border-ink-100 last:border-0">
-                  <td className="px-4 py-3 text-ink-900">{c.nombre} {c.apellido}</td>
+                  <td className="px-4 py-3 text-ink-900 font-medium">{c.nombre} {c.apellido}</td>
                   <td className="px-4 py-3 text-ink-600">{c.correo}</td>
                   <td className="px-4 py-3 text-ink-600">{c.nit_ci}</td>
                   <td className="px-4 py-3">
@@ -187,6 +188,18 @@ export default function Clientes() {
             <Campo label="Teléfono" value={formulario.telefono} onChange={(v) => actualizarCampo("telefono", v)} />
             <Campo label="NIT/CI" value={formulario.nit_ci} onChange={(v) => actualizarCampo("nit_ci", v)} required />
             <Campo label="Dirección" value={formulario.direccion} onChange={(v) => actualizarCampo("direccion", v)} />
+
+            <div>
+              <label className="mb-1 block text-xs font-medium text-ink-800">Estado</label>
+              <select
+                value={formulario.estado}
+                onChange={(e) => actualizarCampo("estado", Number(e.target.value))}
+                className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
+              >
+                <option value={1}>Activo</option>
+                <option value={0}>Inactivo</option>
+              </select>
+            </div>
 
             <div className="sm:col-span-2 mt-2 flex justify-end gap-2">
               <button

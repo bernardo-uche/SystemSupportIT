@@ -3,7 +3,7 @@ import { listarPersonal, crearPersonal, actualizarPersonal, eliminarPersonal } f
 import Modal from "../../components/Modal.jsx";
 import Campo from "../../components/Campo.jsx";
 
-const FORMULARIO_VACIO = { nombre: "", apellido: "", cargo: "", telefono: "", correo: "" };
+const FORMULARIO_VACIO = { nombre: "", apellido: "", cargo: "", telefono: "", correo: "", estado: 1 };
 
 export default function Personal() {
   const [personal, setPersonal] = useState([]);
@@ -35,7 +35,14 @@ export default function Personal() {
 
   function abrirEditar(p) {
     setEditando(p);
-    setFormulario({ nombre: p.nombre, apellido: p.apellido, cargo: p.cargo, telefono: p.telefono || "", correo: p.correo });
+    setFormulario({
+      nombre: p.nombre,
+      apellido: p.apellido,
+      cargo: p.cargo,
+      telefono: p.telefono || "",
+      correo: p.correo,
+      estado: p.estado !== undefined ? Number(p.estado) : 1,
+    });
     setModalAbierto(true);
   }
 
@@ -146,6 +153,18 @@ export default function Personal() {
             <Campo label="Cargo" value={formulario.cargo} onChange={(v) => actualizarCampo("cargo", v)} required />
             <Campo label="Teléfono" value={formulario.telefono} onChange={(v) => actualizarCampo("telefono", v)} />
             <Campo label="Correo" type="email" value={formulario.correo} onChange={(v) => actualizarCampo("correo", v)} required />
+
+            <div>
+              <label className="mb-1 block text-xs font-medium text-ink-800">Estado</label>
+              <select
+                value={formulario.estado}
+                onChange={(e) => actualizarCampo("estado", Number(e.target.value))}
+                className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
+              >
+                <option value={1}>Activo</option>
+                <option value={0}>Inactivo</option>
+              </select>
+            </div>
 
             <div className="sm:col-span-2 mt-2 flex justify-end gap-2">
               <button type="button" onClick={() => setModalAbierto(false)} className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50">Cancelar</button>

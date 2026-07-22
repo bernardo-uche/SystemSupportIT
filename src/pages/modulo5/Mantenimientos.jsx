@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { listarMantenimientos, crearMantenimiento } from "../../services/Modulo5";
+import Modal from "../../components/Modal.jsx";
 
 const FORMULARIO_VACIO = {
   nombre: "",
   descripcion: "",
   tarifa_base: 50,
   tiempo_estimado: 60,
+  estado: 1,
 };
 
 export default function Mantenimientos() {
@@ -63,24 +65,17 @@ export default function Mantenimientos() {
           </p>
         </div>
         <button
-          onClick={() => setMostrarFormulario((v) => !v)}
+          onClick={() => setMostrarFormulario(true)}
           className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
         >
-          {mostrarFormulario ? "Cancelar" : "+ Nuevo Mantenimiento"}
+          + Nuevo Mantenimiento
         </button>
       </div>
 
       {mostrarFormulario && (
-        <form
-          onSubmit={handleSubmit}
-          className="mt-4 rounded-xl border border-brand-200 bg-white p-5 shadow-sm space-y-3"
-        >
-          <h3 className="text-sm font-semibold text-ink-800 border-b border-ink-100 pb-2">
-            Registrar Tipo de Mantenimiento
-          </h3>
-
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <div>
+        <Modal titulo="Registrar Tipo de Mantenimiento" onCerrar={() => setMostrarFormulario(false)}>
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="sm:col-span-2">
               <label className="mb-1 block text-xs font-medium text-ink-800">Nombre del Servicio</label>
               <input
                 type="text"
@@ -117,7 +112,19 @@ export default function Mantenimientos() {
               />
             </div>
 
-            <div className="sm:col-span-3">
+            <div className="sm:col-span-2">
+              <label className="mb-1 block text-xs font-medium text-ink-800">Estado del Servicio</label>
+              <select
+                value={formulario.estado}
+                onChange={(e) => actualizarCampo("estado", Number(e.target.value))}
+                className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
+              >
+                <option value={1}>Activo (Disponible)</option>
+                <option value={0}>Inactivo</option>
+              </select>
+            </div>
+
+            <div className="sm:col-span-2">
               <label className="mb-1 block text-xs font-medium text-ink-800">Descripción del Servicio</label>
               <textarea
                 rows="2"
@@ -127,25 +134,25 @@ export default function Mantenimientos() {
                 className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
               />
             </div>
-          </div>
 
-          <div className="flex gap-2 pt-2">
-            <button
-              type="submit"
-              disabled={guardando}
-              className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
-            >
-              {guardando ? "Guardando…" : "Guardar Mantenimiento"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setMostrarFormulario(false)}
-              className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50"
-            >
-              Cancelar
-            </button>
-          </div>
-        </form>
+            <div className="flex justify-end gap-2 sm:col-span-2 mt-3 pt-2 border-t border-ink-100">
+              <button
+                type="button"
+                onClick={() => setMostrarFormulario(false)}
+                className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                disabled={guardando}
+                className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
+              >
+                {guardando ? "Guardando…" : "Guardar Mantenimiento"}
+              </button>
+            </div>
+          </form>
+        </Modal>
       )}
 
       <div className="mt-5 flex items-center justify-between gap-4">
@@ -190,7 +197,9 @@ export default function Mantenimientos() {
 
               <div className="mt-4 flex items-center justify-between border-t border-ink-100 pt-3 text-xs text-ink-400">
                 <span>⏱️ Duración: <strong className="text-ink-700">{m.tiempo_estimado} min</strong></span>
-                <span className="rounded-full bg-green-50 px-2 py-0.5 font-medium text-green-700">Disponible</span>
+                <span className={`rounded-full px-2 py-0.5 font-medium ${m.estado !== 0 ? "bg-green-50 text-green-700" : "bg-ink-100 text-ink-400"}`}>
+                  {m.estado !== 0 ? "Disponible" : "Inactivo"}
+                </span>
               </div>
             </div>
           ))}

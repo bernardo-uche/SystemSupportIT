@@ -8,17 +8,69 @@ function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function normalizarCotizacion(c) {
+  const clienteNombre = typeof c.cliente === "string"
+    ? c.cliente
+    : c.cliente
+    ? `${c.cliente.nombre || ""} ${c.cliente.apellido || ""}`.trim()
+    : "Cliente General";
+
+  const ofertaNombre = typeof c.oferta === "string"
+    ? c.oferta
+    : c.oferta
+    ? c.oferta.nombre || c.oferta.of_nombre || null
+    : null;
+
+  const listaDetalles = Array.isArray(c.detalles)
+    ? c.detalles
+    : Array.isArray(c.detalle)
+    ? c.detalle
+    : [];
+
+  const detallesNormalizados = listaDetalles.map((d, index) => {
+    const cant = Number(d.cantidad || 1);
+    const pu = Number(d.precio_unitario !== undefined ? d.precio_unitario : d.precio || 0);
+    const sub = Number(d.subtotal !== undefined ? d.subtotal : cant * pu);
+    return {
+      id_detalle: d.id_detalle || d.id_detalle_cotizacion || (Date.now() + index),
+      concepto: d.concepto || d.repuesto || d.equipo || "Repuesto / Servicio",
+      cantidad: cant,
+      precio_unitario: pu,
+      subtotal: sub,
+    };
+  });
+
+  const subtotalSum = detallesNormalizados.reduce((acc, d) => acc + d.subtotal, 0);
+  const totalVal = Number(c.total !== undefined ? c.total : c.monto_total !== undefined ? c.monto_total : subtotalSum);
+
+  return {
+    id_cotizacion: c.id_cotizacion,
+    nro_cotizacion: c.nro_cotizacion || `COT-${String(c.id_cotizacion).padStart(4, "0")}`,
+    cliente: clienteNombre,
+    fecha_registro: c.fecha_registro || new Date().toISOString().split("T")[0],
+    subtotal: subtotalSum,
+    descuento: Number(c.descuento || 0),
+    total: totalVal,
+    oferta: ofertaNombre,
+    observacion: c.observacion || "",
+    detalles: detallesNormalizados,
+  };
+}
+
 function getStoredMock() {
   const data = localStorage.getItem(STORAGE_KEY);
   if (!data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cotizacionesMock));
-    return [...cotizacionesMock];
+    const iniciales = cotizacionesMock.map(normalizarCotizacion);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(iniciales));
+    return iniciales;
   }
   try {
-    return JSON.parse(data);
+    const parsed = JSON.parse(data);
+    return parsed.map(normalizarCotizacion);
   } catch {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cotizacionesMock));
-    return [...cotizacionesMock];
+    const iniciales = cotizacionesMock.map(normalizarCotizacion);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(iniciales));
+    return iniciales;
   }
 }
 
@@ -34,19 +86,18 @@ export async function listarCotizaciones() {
 
   const res = await fetch(`${API_URL}/cotizaciones`);
   if (!res.ok) throw new Error("No se pudo obtener la lista de cotizaciones.");
-  return res.json();
+  const data = await res.json();
+  return Array.isArray(data) ? data.map(normalizarCotizacion) : [];
 }
 
 export async function crearCotizacion(datos) {
   if (USE_MOCK) {
     await delay(400);
     const list = getStoredMock();
-    const nueva = {
+    const nueva = normalizarCotizacion({
       id_cotizacion: Date.now(),
-      fecha_registro: new Date().toISOString().split("T")[0],
-      estado: 1,
       ...datos,
-    };
+    });
     const nuevaLista = [nueva, ...list];
     saveStoredMock(nuevaLista);
     return nueva;
@@ -58,6 +109,7 @@ export async function crearCotizacion(datos) {
     body: JSON.stringify(datos),
   });
 
-  if (!res.ok) throw new Error("No se pudo registrar la cotización.");
-  return res.json();
+  if (!res.ok) throw new Error("No se pudo crear la cotización.");
+  const created = await res.json();
+  return normalizarCotizacion(created);
 }

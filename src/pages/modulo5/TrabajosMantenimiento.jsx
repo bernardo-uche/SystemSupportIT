@@ -9,6 +9,7 @@ import {
 import { listarPersonal } from "../../services/Modulo1";
 import { listarRepuestos } from "../../services/Modulo3";
 import TablaExpandible from "../../components/TablaExpandible.jsx";
+import Modal from "../../components/Modal.jsx";
 
 const FORMULARIO_TRABAJO_VACIO = {
   id_mantenimiento: "",
@@ -140,132 +141,127 @@ export default function TrabajosMantenimiento() {
           </p>
         </div>
         <button
-          onClick={() => setMostrarFormulario((v) => !v)}
+          onClick={() => setMostrarFormulario(true)}
           className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
         >
-          {mostrarFormulario ? "Cancelar" : "+ Programar Trabajo"}
+          + Programar Trabajo
         </button>
       </div>
 
       {mostrarFormulario && (
-        <form
-          onSubmit={handleSubmit}
-          className="mt-4 rounded-xl border border-brand-200 bg-white p-5 shadow-sm space-y-4"
-        >
-          <h3 className="text-sm font-semibold text-ink-800 border-b border-ink-100 pb-2">
-            Programar Orden / Trabajo de Mantenimiento
-          </h3>
+        <Modal titulo="Programar Orden / Trabajo de Mantenimiento" onCerrar={() => setMostrarFormulario(false)}>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <div>
+                <label className="mb-1 block text-xs font-medium text-ink-800">Tipo de Mantenimiento</label>
+                <select
+                  value={formulario.id_mantenimiento}
+                  onChange={(e) => setFormulario((p) => ({ ...p, id_mantenimiento: e.target.value }))}
+                  required
+                  className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
+                >
+                  <option value="">-- Seleccionar --</option>
+                  {mantenimientos.map((m) => (
+                    <option key={m.id_mantenimiento} value={m.id_mantenimiento}>
+                      {m.nombre} (Bs {m.tarifa_base})
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <div>
-              <label className="mb-1 block text-xs font-medium text-ink-800">Tipo de Mantenimiento</label>
-              <select
-                value={formulario.id_mantenimiento}
-                onChange={(e) => setFormulario((p) => ({ ...p, id_mantenimiento: e.target.value }))}
-                required
-                className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
-              >
-                <option value="">-- Seleccionar Mantenimiento --</option>
-                {mantenimientos.map((m) => (
-                  <option key={m.id_mantenimiento} value={m.id_mantenimiento}>
-                    {m.nombre} (Tarifa: Bs {m.tarifa_base})
-                  </option>
+              <div>
+                <label className="mb-1 block text-xs font-medium text-ink-800">Técnico Asignado</label>
+                <select
+                  value={formulario.tecnico}
+                  onChange={(e) => setFormulario((p) => ({ ...p, tecnico: e.target.value }))}
+                  className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
+                >
+                  <option value="">-- Seleccionar --</option>
+                  {personal.map((p) => (
+                    <option key={p.id_personal} value={`${p.nombre} ${p.apellido}`}>
+                      {p.nombre} {p.apellido} ({p.cargo})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="mb-1 block text-xs font-medium text-ink-800">Fecha Programada</label>
+                <input
+                  type="date"
+                  value={formulario.fecha_programada}
+                  onChange={(e) => setFormulario((p) => ({ ...p, fecha_programada: e.target.value }))}
+                  required
+                  className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
+                />
+              </div>
+            </div>
+
+            {/* Asignación de Herramientas */}
+            <div className="rounded-lg bg-ink-50 p-3.5 border border-ink-100">
+              <p className="text-xs font-semibold text-ink-800 mb-2">Herramientas a Utilizar</p>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 text-xs">
+                {herramientas.map((h) => (
+                  <label key={h.id_herramienta} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formulario.herramientas_usadas.includes(h.nombre)}
+                      onChange={() => toggleHerramienta(h.nombre)}
+                      className="rounded border-ink-300 text-brand-600 focus:ring-brand-500"
+                    />
+                    <span>{h.nombre}</span>
+                  </label>
                 ))}
-              </select>
+              </div>
+            </div>
+
+            {/* Asignación de Repuestos */}
+            <div className="rounded-lg bg-ink-50 p-3.5 border border-ink-100">
+              <p className="text-xs font-semibold text-ink-800 mb-2">Repuestos a Consumir</p>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 text-xs">
+                {repuestos.map((r) => (
+                  <label key={r.id_repuesto} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formulario.repuestos_usados.includes(r.nombre)}
+                      onChange={() => toggleRepuesto(r.nombre)}
+                      className="rounded border-ink-300 text-brand-600 focus:ring-brand-500"
+                    />
+                    <span>{r.nombre}</span>
+                  </label>
+                ))}
+              </div>
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-medium text-ink-800">Técnico Asignado</label>
-              <select
-                value={formulario.tecnico}
-                onChange={(e) => setFormulario((p) => ({ ...p, tecnico: e.target.value }))}
-                className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
-              >
-                <option value="">-- Seleccionar Técnico --</option>
-                {personal.map((p) => (
-                  <option key={p.id_personal} value={`${p.nombre} ${p.apellido}`}>
-                    {p.nombre} {p.apellido} ({p.cargo})
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="mb-1 block text-xs font-medium text-ink-800">Fecha Programada</label>
-              <input
-                type="date"
-                value={formulario.fecha_programada}
-                onChange={(e) => setFormulario((p) => ({ ...p, fecha_programada: e.target.value }))}
-                required
+              <label className="mb-1 block text-xs font-medium text-ink-800">Observaciones</label>
+              <textarea
+                rows="2"
+                placeholder="Instrucciones o detalles..."
+                value={formulario.observaciones}
+                onChange={(e) => setFormulario((p) => ({ ...p, observaciones: e.target.value }))}
                 className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
               />
             </div>
-          </div>
 
-          {/* Asignación de Herramientas */}
-          <div className="rounded-lg bg-ink-50 p-3.5 border border-ink-100">
-            <p className="text-xs font-semibold text-ink-800 mb-2">Herramientas a Utilizar</p>
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 text-xs">
-              {herramientas.map((h) => (
-                <label key={h.id_herramienta} className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={formulario.herramientas_usadas.includes(h.nombre)}
-                    onChange={() => toggleHerramienta(h.nombre)}
-                    className="rounded border-ink-300 text-brand-600 focus:ring-brand-500"
-                  />
-                  <span>{h.nombre} ({h.nro_serie_interno})</span>
-                </label>
-              ))}
+            <div className="flex justify-end gap-2 pt-2 border-t border-ink-100">
+              <button
+                type="button"
+                onClick={() => setMostrarFormulario(false)}
+                className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                disabled={guardando}
+                className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
+              >
+                {guardando ? "Registrando…" : "Programar Trabajo"}
+              </button>
             </div>
-          </div>
-
-          {/* Asignación de Repuestos */}
-          <div className="rounded-lg bg-ink-50 p-3.5 border border-ink-100">
-            <p className="text-xs font-semibold text-ink-800 mb-2">Repuestos a Consumir</p>
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 text-xs">
-              {repuestos.map((r) => (
-                <label key={r.id_repuesto} className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={formulario.repuestos_usados.includes(r.nombre)}
-                    onChange={() => toggleRepuesto(r.nombre)}
-                    className="rounded border-ink-300 text-brand-600 focus:ring-brand-500"
-                  />
-                  <span>{r.nombre}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <label className="mb-1 block text-xs font-medium text-ink-800">Observaciones</label>
-            <textarea
-              rows="2"
-              placeholder="Instrucciones o detalles de la orden de trabajo..."
-              value={formulario.observaciones}
-              onChange={(e) => setFormulario((p) => ({ ...p, observaciones: e.target.value }))}
-              className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
-            />
-          </div>
-
-          <div className="flex gap-2 pt-2">
-            <button
-              type="submit"
-              disabled={guardando}
-              className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
-            >
-              {guardando ? "Registrando…" : "Programar Trabajo"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setMostrarFormulario(false)}
-              className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50"
-            >
-              Cancelar
-            </button>
-          </div>
-        </form>
+          </form>
+        </Modal>
       )}
 
       <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

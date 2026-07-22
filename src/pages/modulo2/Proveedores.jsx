@@ -6,8 +6,9 @@ import {
   cambiarEstadoProveedor,
   eliminarProveedor,
 } from "../../services/Modulo2";
+import Modal from "../../components/Modal.jsx";
 
-const FORMULARIO_VACIO = { nombre: "", nit: "", correo: "", celular: "", departamento: "", direccion: "" };
+const FORMULARIO_VACIO = { nombre: "", nit: "", correo: "", celular: "", departamento: "", direccion: "", estado: 1 };
 
 export default function Proveedores() {
   const [proveedores, setProveedores] = useState([]);
@@ -44,6 +45,7 @@ export default function Proveedores() {
       celular: p.celular || "",
       departamento: p.departamento || "",
       direccion: p.direccion || "",
+      estado: p.estado !== undefined ? Number(p.estado) : 1,
     });
     setMostrarFormulario(true);
   }
@@ -117,75 +119,84 @@ export default function Proveedores() {
           </p>
         </div>
         <button
-          onClick={mostrarFormulario ? () => setMostrarFormulario(false) : abrirFormularioCrear}
+          onClick={abrirFormularioCrear}
           className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
         >
-          {mostrarFormulario ? "Cancelar" : "+ Nuevo proveedor"}
+          + Nuevo proveedor
         </button>
       </div>
 
       {mostrarFormulario && (
-        <form
-          onSubmit={handleSubmit}
-          className="mt-4 grid grid-cols-1 gap-3 rounded-xl border border-brand-200 bg-white p-5 shadow-sm sm:grid-cols-2"
+        <Modal
+          titulo={proveedorEditando ? "Editar Proveedor" : "Nuevo Proveedor"}
+          onCerrar={() => setMostrarFormulario(false)}
         >
-          <div className="sm:col-span-2 border-b border-ink-100 pb-2">
-            <h3 className="text-sm font-semibold text-ink-800">
-              {proveedorEditando ? "Editar Proveedor" : "Registrar Nuevo Proveedor"}
-            </h3>
-          </div>
-          <Campo
-            label="Nombre o Razón Social"
-            value={formulario.nombre}
-            onChange={(v) => actualizarCampo("nombre", v)}
-            required
-          />
-          <Campo
-            label="NIT / CI"
-            value={formulario.nit}
-            onChange={(v) => actualizarCampo("nit", v)}
-            required
-          />
-          <Campo
-            label="Correo Electrónico"
-            type="email"
-            value={formulario.correo}
-            onChange={(v) => actualizarCampo("correo", v)}
-            required
-          />
-          <Campo
-            label="Teléfono / Celular"
-            value={formulario.celular}
-            onChange={(v) => actualizarCampo("celular", v)}
-          />
-          <Campo
-            label="Departamento"
-            value={formulario.departamento}
-            onChange={(v) => actualizarCampo("departamento", v)}
-          />
-          <Campo
-            label="Dirección"
-            value={formulario.direccion}
-            onChange={(v) => actualizarCampo("direccion", v)}
-          />
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <Campo
+              label="Nombre o Razón Social"
+              value={formulario.nombre}
+              onChange={(v) => actualizarCampo("nombre", v)}
+              required
+            />
+            <Campo
+              label="NIT / CI"
+              value={formulario.nit}
+              onChange={(v) => actualizarCampo("nit", v)}
+              required
+            />
+            <Campo
+              label="Correo Electrónico"
+              type="email"
+              value={formulario.correo}
+              onChange={(v) => actualizarCampo("correo", v)}
+              required
+            />
+            <Campo
+              label="Teléfono / Celular"
+              value={formulario.celular}
+              onChange={(v) => actualizarCampo("celular", v)}
+            />
+            <Campo
+              label="Departamento"
+              value={formulario.departamento}
+              onChange={(v) => actualizarCampo("departamento", v)}
+            />
+            <Campo
+              label="Dirección"
+              value={formulario.direccion}
+              onChange={(v) => actualizarCampo("direccion", v)}
+            />
 
-          <div className="flex gap-2 sm:col-span-2 mt-2">
-            <button
-              type="submit"
-              disabled={guardando}
-              className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
-            >
-              {guardando ? "Guardando…" : proveedorEditando ? "Actualizar Proveedor" : "Guardar Proveedor"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setMostrarFormulario(false)}
-              className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50"
-            >
-              Cancelar
-            </button>
-          </div>
-        </form>
+            <div>
+              <label className="mb-1 block text-xs font-medium text-ink-800">Estado</label>
+              <select
+                value={formulario.estado}
+                onChange={(e) => actualizarCampo("estado", Number(e.target.value))}
+                className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500"
+              >
+                <option value={1}>Activo</option>
+                <option value={0}>Inactivo</option>
+              </select>
+            </div>
+
+            <div className="flex justify-end gap-2 sm:col-span-2 mt-3 pt-2 border-t border-ink-100">
+              <button
+                type="button"
+                onClick={() => setMostrarFormulario(false)}
+                className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                disabled={guardando}
+                className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
+              >
+                {guardando ? "Guardando…" : proveedorEditando ? "Actualizar Proveedor" : "Guardar Proveedor"}
+              </button>
+            </div>
+          </form>
+        </Modal>
       )}
 
       <div className="mt-5 flex items-center justify-between gap-4">
@@ -287,4 +298,4 @@ function Campo({ label, value, onChange, type = "text", required = false }) {
       />
     </div>
   );
-}
+}

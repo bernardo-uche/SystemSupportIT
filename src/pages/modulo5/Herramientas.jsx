@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { listarHerramientas, crearHerramienta, actualizarEstadoFisicoHerramienta } from "../../services/Modulo5";
+import Modal from "../../components/Modal.jsx";
 
 const FORMULARIO_VACIO = {
   nombre: "",
@@ -80,23 +81,16 @@ export default function Herramientas() {
           </p>
         </div>
         <button
-          onClick={() => setMostrarFormulario((v) => !v)}
+          onClick={() => setMostrarFormulario(true)}
           className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
         >
-          {mostrarFormulario ? "Cancelar" : "+ Nueva Herramienta"}
+          + Nueva Herramienta
         </button>
       </div>
 
       {mostrarFormulario && (
-        <form
-          onSubmit={handleSubmit}
-          className="mt-4 rounded-xl border border-brand-200 bg-white p-5 shadow-sm space-y-3"
-        >
-          <h3 className="text-sm font-semibold text-ink-800 border-b border-ink-100 pb-2">
-            Registrar Nueva Herramienta
-          </h3>
-
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <Modal titulo="Registrar Nueva Herramienta" onCerrar={() => setMostrarFormulario(false)}>
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
               <label className="mb-1 block text-xs font-medium text-ink-800">Nombre de Herramienta</label>
               <input
@@ -147,25 +141,25 @@ export default function Herramientas() {
                 <option value="malo">Malo</option>
               </select>
             </div>
-          </div>
 
-          <div className="flex gap-2 pt-2">
-            <button
-              type="submit"
-              disabled={guardando}
-              className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
-            >
-              {guardando ? "Guardando…" : "Guardar Herramienta"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setMostrarFormulario(false)}
-              className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50"
-            >
-              Cancelar
-            </button>
-          </div>
-        </form>
+            <div className="flex justify-end gap-2 sm:col-span-2 mt-3 pt-2 border-t border-ink-100">
+              <button
+                type="button"
+                onClick={() => setMostrarFormulario(false)}
+                className="rounded-lg border border-ink-100 px-4 py-2 text-sm font-medium text-ink-600 hover:bg-ink-50"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                disabled={guardando}
+                className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
+              >
+                {guardando ? "Guardando…" : "Guardar Herramienta"}
+              </button>
+            </div>
+          </form>
+        </Modal>
       )}
 
       <div className="mt-5 flex items-center justify-between gap-4">

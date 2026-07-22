@@ -8,17 +8,32 @@ function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function normalizarOferta(o) {
+  return {
+    id_oferta: o.id_oferta,
+    nombre: o.nombre || o.of_nombre || "Oferta Especial",
+    descuento_porcentaje: Number(o.descuento_porcentaje || o.porcentaje || 0),
+    fecha_inicio: o.fecha_inicio || o.fecha_inc || new Date().toISOString().split("T")[0],
+    fecha_fin: o.fecha_fin || "2026-12-31",
+    descripcion: o.descripcion || "",
+    estado: o.estado !== undefined ? o.estado : 1,
+  };
+}
+
 function getStoredMock() {
   const data = localStorage.getItem(STORAGE_KEY);
   if (!data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(ofertasMock));
-    return [...ofertasMock];
+    const iniciales = ofertasMock.map(normalizarOferta);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(iniciales));
+    return iniciales;
   }
   try {
-    return JSON.parse(data);
+    const parsed = JSON.parse(data);
+    return parsed.map(normalizarOferta);
   } catch {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(ofertasMock));
-    return [...ofertasMock];
+    const iniciales = ofertasMock.map(normalizarOferta);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(iniciales));
+    return iniciales;
   }
 }
 
@@ -34,18 +49,19 @@ export async function listarOfertas() {
 
   const res = await fetch(`${API_URL}/ofertas`);
   if (!res.ok) throw new Error("No se pudo obtener la lista de ofertas.");
-  return res.json();
+  const data = await res.json();
+  return Array.isArray(data) ? data.map(normalizarOferta) : [];
 }
 
 export async function crearOferta(datos) {
   if (USE_MOCK) {
     await delay(400);
     const list = getStoredMock();
-    const nueva = {
+    const nueva = normalizarOferta({
       id_oferta: Date.now(),
       estado: 1,
       ...datos,
-    };
+    });
     const nuevaLista = [nueva, ...list];
     saveStoredMock(nuevaLista);
     return nueva;
@@ -58,7 +74,8 @@ export async function crearOferta(datos) {
   });
 
   if (!res.ok) throw new Error("No se pudo crear la oferta.");
-  return res.json();
+  const created = await res.json();
+  return normalizarOferta(created);
 }
 
 export async function cambiarEstadoOferta(id, nuevoEstado) {
