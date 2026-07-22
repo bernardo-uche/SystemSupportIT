@@ -74,7 +74,7 @@ export default function Dashboard() {
   return (
     <div>
       <h1 className="text-2xl font-semibold text-ink-900">
-        Hola, {usuario?.nombre?.split(" ")[0]}
+        Hola, {usuario?.nombre ? usuario.nombre.split(" ")[0] : "Usuario"}
       </h1>
       <p className="mt-1 text-sm text-ink-400">
         Resumen calculado a partir de los datos ficticios de Clientes y Órdenes de servicio.
@@ -101,7 +101,7 @@ export default function Dashboard() {
           <Tarjeta
             titulo="Monto en curso"
             valor={`Bs ${resumen.montoEnProceso.toFixed(2)}`}
-            nota="Saldo de ordenes "
+            nota="Saldo de órdenes"
           />
         )}
       </div>
@@ -146,7 +146,7 @@ export default function Dashboard() {
                 <li key={o.id_orden} className="flex items-center justify-between text-sm">
                   <div>
                     <p className="font-medium text-ink-900">
-                      {o.cliente.nombre} {o.cliente.apellido}
+                      {o.cliente?.nombre || "Cliente"} {o.cliente?.apellido || ""}
                     </p>
                     <p className="text-xs text-ink-400">{o.problema_reportado}</p>
                   </div>

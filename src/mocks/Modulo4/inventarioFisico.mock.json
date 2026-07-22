@@ -1,0 +1,35 @@
+[
+  {
+    "id_inventario_fisico": 1,
+    "id_inventario": 1,
+    "repuesto": "Bateria HP Pavilion",
+    "fecha_conteo": "2026-01-15 09:00:00",
+    "stock_sistema": 15,
+    "stock_contado": 15,
+    "diferencia": 0,
+    "resultado": "CONFORME",
+    "observacion": "Coincide con sistema"
+  },
+  {
+    "id_inventario_fisico": 2,
+    "id_inventario": 2,
+    "repuesto": "Bateria Dell Latitude",
+    "fecha_conteo": "2026-01-15 09:30:00",
+    "stock_sistema": 10,
+    "stock_contado": 9,
+    "diferencia": -1,
+    "resultado": "FALTANTE",
+    "observacion": "Una unidad no encontrada"
+  },
+  {
+    "id_inventario_fisico": 3,
+    "id_inventario": 4,
+    "repuesto": "SSD 500GB",
+    "fecha_conteo": "2026-01-15 10:30:00",
+    "stock_sistema": 25,
+    "stock_contado": 26,
+    "diferencia": 1,
+    "resultado": "SOBRANTE",
+    "observacion": "Unidad extra en estante"
+  }
+]

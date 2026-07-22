@@ -1,0 +1,41 @@
+[
+  {
+    "id_lote_stock": 1,
+    "codigo_lote": "LOTE-001-2026",
+    "id_detalle_compra": 1,
+    "repuesto": "Batería HP Pavilion",
+    "fecha_ingreso": "2026-01-05",
+    "cantidad_inicial": 2,
+    "cantidad_disponible": 2,
+    "costo_unitario": 80.0,
+    "fecha_vencimiento": "2027-12-31",
+    "estado": "ACTIVO",
+    "observacion": "Lote de baterías HP"
+  },
+  {
+    "id_lote_stock": 2,
+    "codigo_lote": "LOTE-002-2026",
+    "id_detalle_compra": 2,
+    "repuesto": "SSD 500GB",
+    "fecha_ingreso": "2026-01-05",
+    "cantidad_inicial": 4,
+    "cantidad_disponible": 3,
+    "costo_unitario": 55.0,
+    "fecha_vencimiento": "2028-12-31",
+    "estado": "ACTIVO",
+    "observacion": "Lote de SSD"
+  },
+  {
+    "id_lote_stock": 3,
+    "codigo_lote": "LOTE-004-2026",
+    "id_detalle_compra": 4,
+    "repuesto": "RAM 8GB DDR4",
+    "fecha_ingreso": "2026-01-12",
+    "cantidad_inicial": 2,
+    "cantidad_disponible": 0,
+    "costo_unitario": 40.0,
+    "fecha_vencimiento": "2027-12-31",
+    "estado": "AGOTADO",
+    "observacion": "Lote de RAM totalmente vendido"
+  }
+]

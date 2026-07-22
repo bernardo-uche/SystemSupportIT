@@ -1,0 +1,38 @@
+[
+  {
+    "id_oferta": 1,
+    "of_nombre": "Promocion Verano 2026",
+    "descripcion": "Descuento en baterias",
+    "porcentaje": 15.0,
+    "fecha_inc": "2026-01-01",
+    "fecha_fin": "2026-02-28",
+    "estado": 1
+  },
+  {
+    "id_oferta": 2,
+    "of_nombre": "Oferta SSD",
+    "descripcion": "Descuento especial en discos solidos",
+    "porcentaje": 10.0,
+    "fecha_inc": "2026-01-15",
+    "fecha_fin": "2026-03-15",
+    "estado": 1
+  },
+  {
+    "id_oferta": 3,
+    "of_nombre": "Black Friday TI",
+    "descripcion": "Descuentos en todo",
+    "porcentaje": 20.0,
+    "fecha_inc": "2026-01-20",
+    "fecha_fin": "2026-02-28",
+    "estado": 1
+  },
+  {
+    "id_oferta": 4,
+    "of_nombre": "Liquidación Anual",
+    "descripcion": "Últimos modelos",
+    "porcentaje": 25.0,
+    "fecha_inc": "2026-01-25",
+    "fecha_fin": "2026-03-31",
+    "estado": 0
+  }
+]

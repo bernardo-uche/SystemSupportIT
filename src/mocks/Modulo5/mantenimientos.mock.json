@@ -1,0 +1,50 @@
+[
+  {
+    "id_mantenimiento": 1,
+    "nombre": "Limpieza Interna",
+    "descripcion": "Limpieza completa de componentes y reemplazo de pasta térmica",
+    "tarifa_base": 80.0,
+    "tiempo_estimado": 60,
+    "estado": 1
+  },
+  {
+    "id_mantenimiento": 2,
+    "nombre": "Cambio de Batería",
+    "descripcion": "Reemplazo e instalación de batería original",
+    "tarifa_base": 100.0,
+    "tiempo_estimado": 45,
+    "estado": 1
+  },
+  {
+    "id_mantenimiento": 3,
+    "nombre": "Reparación de Pantalla",
+    "descripcion": "Cambio de display y ajuste de conectores de video",
+    "tarifa_base": 150.0,
+    "tiempo_estimado": 90,
+    "estado": 1
+  },
+  {
+    "id_mantenimiento": 4,
+    "nombre": "Actualización de Firmware",
+    "descripcion": "Actualización de BIOS/firmware y parches de seguridad",
+    "tarifa_base": 60.0,
+    "tiempo_estimado": 30,
+    "estado": 1
+  },
+  {
+    "id_mantenimiento": 5,
+    "nombre": "Diagnóstico General",
+    "descripcion": "Revisión completa de hardware y software del sistema",
+    "tarifa_base": 50.0,
+    "tiempo_estimado": 120,
+    "estado": 1
+  },
+  {
+    "id_mantenimiento": 6,
+    "nombre": "Cambio de Ventilador",
+    "descripcion": "Reemplazo de ventilador de CPU y prueba de temperatura",
+    "tarifa_base": 70.0,
+    "tiempo_estimado": 50,
+    "estado": 1
+  }
+]

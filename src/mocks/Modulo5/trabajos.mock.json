@@ -1,0 +1,41 @@
+[
+  {
+    "id_trabajo_mantenimiento": 1,
+    "id_diagnostico": 1,
+    "mantenimiento": "Reparación de Pantalla",
+    "fecha_programada": "2026-01-12",
+    "fecha_inicio": "2026-01-12 09:00:00",
+    "fecha_fin": "2026-01-12 11:30:00",
+    "observaciones": "Trabajo completado exitosamente",
+    "estado": "finalizado",
+    "tecnico": "Juan Pérez",
+    "herramientas_usadas": ["Multímetro Digital", "Destornillador Precisión"],
+    "repuestos_usados": ["Pantalla 15.6 LCD"]
+  },
+  {
+    "id_trabajo_mantenimiento": 2,
+    "id_diagnostico": 2,
+    "mantenimiento": "Cambio de Batería",
+    "fecha_programada": "2026-01-14",
+    "fecha_inicio": null,
+    "fecha_fin": null,
+    "observaciones": "Esperando llegada de repuesto",
+    "estado": "pendiente",
+    "tecnico": "María González",
+    "herramientas_usadas": [],
+    "repuestos_usados": ["Batería HP Pavilion"]
+  },
+  {
+    "id_trabajo_mantenimiento": 3,
+    "id_diagnostico": 3,
+    "mantenimiento": "Limpieza Interna",
+    "fecha_programada": "2026-01-17",
+    "fecha_inicio": "2026-01-17 10:00:00",
+    "fecha_fin": null,
+    "observaciones": "En proceso de limpieza",
+    "estado": "en_proceso",
+    "tecnico": "Juan Pérez",
+    "herramientas_usadas": ["Multímetro Digital", "Pinza Electrónica"],
+    "repuestos_usados": []
+  }
+]

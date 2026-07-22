@@ -1,0 +1,46 @@
+[
+  {
+    "id_inventario": 1,
+    "id_repuesto": 1,
+    "repuesto": { "nombre": "Bateria HP Pavilion", "codigo": "BAT-HP-001", "stock_actual": 15 },
+    "fecha_registro": "2026-01-01",
+    "stock_minimo": 5,
+    "stock_maximo": 30,
+    "ubicacion": "Estante A-01",
+    "observacion": "Baterias HP Pavilion",
+    "estado": 1
+  },
+  {
+    "id_inventario": 2,
+    "id_repuesto": 2,
+    "repuesto": { "nombre": "Bateria Dell Latitude", "codigo": "BAT-DELL-001", "stock_actual": 2 },
+    "fecha_registro": "2026-01-01",
+    "stock_minimo": 5,
+    "stock_maximo": 20,
+    "ubicacion": "Estante A-02",
+    "observacion": "Stock crítico",
+    "estado": 1
+  },
+  {
+    "id_inventario": 3,
+    "id_repuesto": 3,
+    "repuesto": { "nombre": "Pantalla 15.6 LCD", "codigo": "PAN-HP-001", "stock_actual": 8 },
+    "fecha_registro": "2026-01-01",
+    "stock_minimo": 2,
+    "stock_maximo": 15,
+    "ubicacion": "Estante B-01",
+    "observacion": "Pantallas LCD",
+    "estado": 1
+  },
+  {
+    "id_inventario": 4,
+    "id_repuesto": 4,
+    "repuesto": { "nombre": "SSD 500GB", "codigo": "SSD-500-001", "stock_actual": 25 },
+    "fecha_registro": "2026-01-01",
+    "stock_minimo": 10,
+    "stock_maximo": 50,
+    "ubicacion": "Estante C-01",
+    "observacion": "SSD de mayor rotación",
+    "estado": 1
+  }
+]

@@ -13,18 +13,30 @@
   },
   {
     "id": 2,
+    "nombre": "Administrador Sistema",
+    "email": "admin@sistema.com",
+    "password": "admin123",
+    "rol": {
+      "id": 1,
+      "nombre": "administrador"
+    },
+    "avatarIniciales": "AS",
+    "activo": true
+  },
+  {
+    "id": 3,
     "nombre": "Luis Rojas",
     "email": "supervisor@sistema.com",
     "password": "super123",
     "rol": {
       "id": 2,
-      "nombre": "personal"
+      "nombre": "supervisor"
     },
     "avatarIniciales": "LR",
     "activo": true
   },
   {
-    "id": 3,
+    "id": 4,
     "nombre": "Carla Mamani",
     "email": "usuario@sistema.com",
     "password": "user123",
@@ -36,7 +48,7 @@
     "activo": true
   },
   {
-    "id": 4,
+    "id": 5,
     "nombre": "Jorge Quiroga",
     "email": "inactivo@sistema.com",
     "password": "user123",

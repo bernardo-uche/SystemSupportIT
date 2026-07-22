@@ -3,7 +3,6 @@ import { listarPersonal, crearPersonal, actualizarPersonal, eliminarPersonal } f
 import Modal from "../../components/Modal.jsx";
 import Campo from "../../components/Campo.jsx";
 
-
 const FORMULARIO_VACIO = { nombre: "", apellido: "", cargo: "", telefono: "", correo: "" };
 
 export default function Personal() {
@@ -80,13 +79,13 @@ export default function Personal() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold text-ink-900">Personal</h1>
-          <p className="mt-1 text-sm text-ink-400">Conectado a la API del Módulo 1.</p>
+          <p className="mt-1 text-sm text-ink-400">Gestión de personal del servicio técnico.</p>
         </div>
         <button
           onClick={abrirCrear}
           className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700"
         >
-          + Nuevo
+          + Nuevo Personal
         </button>
       </div>
 
@@ -102,6 +101,7 @@ export default function Personal() {
             <tr>
               <th className="px-4 py-3 font-medium">Nombre</th>
               <th className="px-4 py-3 font-medium">Cargo</th>
+              <th className="px-4 py-3 font-medium">Teléfono</th>
               <th className="px-4 py-3 font-medium">Correo</th>
               <th className="px-4 py-3 font-medium">Estado</th>
               <th className="px-4 py-3 font-medium">Acciones</th>
@@ -110,14 +110,16 @@ export default function Personal() {
           <tbody>
             {cargando && (
               <tr>
-                <td colSpan={5} className="px-4 py-6 text-center text-ink-400">Cargando personal…</td>
+                <td colSpan={6} className="px-4 py-6 text-center text-ink-400">Cargando personal…</td>
               </tr>
             )}
+
             {!cargando &&
               personal.map((p) => (
                 <tr key={p.id_personal} className="border-b border-ink-100 last:border-0">
-                  <td className="px-4 py-3 text-ink-900">{p.nombre} {p.apellido}</td>
+                  <td className="px-4 py-3 text-ink-900 font-medium">{p.nombre} {p.apellido}</td>
                   <td className="px-4 py-3 text-ink-600">{p.cargo}</td>
+                  <td className="px-4 py-3 text-ink-600">{p.telefono || "-"}</td>
                   <td className="px-4 py-3 text-ink-600">{p.correo}</td>
                   <td className="px-4 py-3">
                     <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${p.estado ? "bg-green-50 text-green-700" : "bg-ink-100 text-ink-400"}`}>

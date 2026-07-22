@@ -7,10 +7,11 @@ import NotFound from "./pages/NotFound.jsx";
 import DashboardLayout from "./layouts/DashboardLayout.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import { Clientes, OrdenesServicio, Personal, Equipos } from "./pages/modulo1";
-import { Compras, Proveedores } from "./pages/modulo2";
+import { Compras, Proveedores, Ofertas, Cotizaciones } from "./pages/modulo2";
 import { Repuestos, Ventas } from "./pages/modulo3";
+import { Inventario, LoteStock, Kardex, InventarioFisico } from "./pages/modulo4";
+import { Herramientas, Mantenimientos, TrabajosMantenimiento } from "./pages/modulo5";
 import EnConstruccion from "./pages/EnConstruccion.jsx";
-
 
 export default function App() {
   return (
@@ -33,10 +34,22 @@ export default function App() {
         <Route path="clientes" element={<Clientes />} />
         <Route path="repuestos" element={<Repuestos />} />
         <Route path="compras" element={<Compras />} />
+        <Route path="ofertas" element={<Ofertas />} />
+        <Route path="cotizaciones" element={<Cotizaciones />} />
         <Route path="ordenes" element={<OrdenesServicio />} />
         <Route path="personal" element={<Personal />} />
         <Route path="equipos" element={<Equipos />} />
 
+        {/* Módulo 4: Inventario */}
+        <Route path="inventario" element={<Inventario />} />
+        <Route path="lote-stock" element={<LoteStock />} />
+        <Route path="kardex" element={<Kardex />} />
+        <Route path="inventario-fisico" element={<InventarioFisico />} />
+
+        {/* Módulo 5: Mantenimiento */}
+        <Route path="herramientas" element={<Herramientas />} />
+        <Route path="mantenimientos" element={<Mantenimientos />} />
+        <Route path="trabajos" element={<TrabajosMantenimiento />} />
 
         <Route path="proximamente" element={<EnConstruccion />} />
         <Route

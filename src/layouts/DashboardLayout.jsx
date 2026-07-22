@@ -32,24 +32,25 @@ const NAV_SECTIONS = [
     items: [
       { label: "Proveedores", to: "/dashboard/proveedores", icon: "🚚", roles: ["administrador", "supervisor"], estado: "listo" },
       { label: "Compras", to: "/dashboard/compras", icon: "📦", roles: ["administrador", "supervisor"], estado: "listo" },
-      { label: "Ofertas", to: "ofertas", icon: "🏷️", roles: ["administrador", "supervisor"], estado: "pendiente" },
-      { label: "Cotizaciones", to: "cotizaciones", icon: "📄", roles: null, estado: "pendiente" },
+      { label: "Ofertas", to: "/dashboard/ofertas", icon: "🏷️", roles: ["administrador", "supervisor"], estado: "listo" },
+      { label: "Cotizaciones", to: "/dashboard/cotizaciones", icon: "📄", roles: null, estado: "listo" },
     ],
   },
   {
     titulo: "Mantenimiento",
     items: [
-      { label: "Herramientas", to: "herramientas", icon: "🧰", roles: ["administrador", "supervisor"], estado: "pendiente" },
-      { label: "Mantenimientos", to: "mantenimientos", icon: "🔩", roles: ["administrador", "supervisor"], estado: "pendiente" },
-      { label: "Trabajos de mantenimiento", to: "trabajos", icon: "📋", roles: null, estado: "pendiente" },
+      { label: "Herramientas", to: "/dashboard/herramientas", icon: "🧰", roles: ["administrador", "supervisor"], estado: "listo" },
+      { label: "Mantenimientos", to: "/dashboard/mantenimientos", icon: "🔩", roles: ["administrador", "supervisor"], estado: "listo" },
+      { label: "Trabajos de mantenimiento", to: "/dashboard/trabajos", icon: "📋", roles: null, estado: "listo" },
     ],
   },
   {
     titulo: "Inventario",
     items: [
-      { label: "Inventario", to: "inventario", icon: "📊", roles: ["administrador", "supervisor"], estado: "pendiente" },
-      { label: "Kardex", to: "kardex", icon: "📈", roles: ["administrador", "supervisor"], estado: "pendiente" },
-      { label: "Inventario físico", to: "inventario-fisico", icon: "🧮", roles: ["administrador"], estado: "pendiente" },
+      { label: "Inventario", to: "/dashboard/inventario", icon: "📊", roles: ["administrador", "supervisor"], estado: "listo" },
+      { label: "Lotes de Stock", to: "/dashboard/lote-stock", icon: "🏷️", roles: ["administrador", "supervisor"], estado: "listo" },
+      { label: "Kardex", to: "/dashboard/kardex", icon: "📈", roles: ["administrador", "supervisor"], estado: "listo" },
+      { label: "Inventario físico", to: "/dashboard/inventario-fisico", icon: "🧮", roles: ["administrador", "supervisor"], estado: "listo" },
     ],
   },
   {

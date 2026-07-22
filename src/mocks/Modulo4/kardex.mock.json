@@ -1,0 +1,54 @@
+[
+  {
+    "id_kardex": 1,
+    "id_inventario": 1,
+    "repuesto": "Bateria HP Pavilion",
+    "tipo_movimiento": "ENTRADA",
+    "cantidad_entrada": 2,
+    "cantidad_salida": 0,
+    "saldo_anterior": 0,
+    "saldo_actual": 2,
+    "concepto": "Compra inicial baterias HP",
+    "referencia": "COMP-001",
+    "fecha_movimiento": "2026-01-05 10:00:00"
+  },
+  {
+    "id_kardex": 2,
+    "id_inventario": 4,
+    "repuesto": "SSD 500GB",
+    "tipo_movimiento": "ENTRADA",
+    "cantidad_entrada": 4,
+    "cantidad_salida": 0,
+    "saldo_anterior": 0,
+    "saldo_actual": 4,
+    "concepto": "Compra inicial SSD",
+    "referencia": "COMP-001",
+    "fecha_movimiento": "2026-01-05 10:00:00"
+  },
+  {
+    "id_kardex": 3,
+    "id_inventario": 4,
+    "repuesto": "SSD 500GB",
+    "tipo_movimiento": "SALIDA",
+    "cantidad_entrada": 0,
+    "cantidad_salida": 1,
+    "saldo_anterior": 4,
+    "saldo_actual": 3,
+    "concepto": "Venta SSD a cliente",
+    "referencia": "VENTA-001",
+    "fecha_movimiento": "2026-01-10 14:30:00"
+  },
+  {
+    "id_kardex": 4,
+    "id_inventario": 1,
+    "repuesto": "Bateria HP Pavilion",
+    "tipo_movimiento": "SALIDA",
+    "cantidad_entrada": 0,
+    "cantidad_salida": 1,
+    "saldo_anterior": 2,
+    "saldo_actual": 1,
+    "concepto": "Venta baterias HP",
+    "referencia": "VENTA-002",
+    "fecha_movimiento": "2026-01-12 15:00:00"
+  }
+]

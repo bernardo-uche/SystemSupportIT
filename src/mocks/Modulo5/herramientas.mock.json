@@ -1,0 +1,56 @@
+[
+  {
+    "id_herramienta": 1,
+    "id_categoria_herramienta": 1,
+    "categoria": "Herramientas Electrónicas",
+    "nombre": "Multímetro Digital",
+    "nro_serie_interno": "H-001",
+    "estado_fisico": "excelente",
+    "estado": 1
+  },
+  {
+    "id_herramienta": 2,
+    "id_categoria_herramienta": 1,
+    "categoria": "Herramientas Electrónicas",
+    "nombre": "Osciloscopio",
+    "nro_serie_interno": "H-002",
+    "estado_fisico": "bueno",
+    "estado": 1
+  },
+  {
+    "id_herramienta": 3,
+    "id_categoria_herramienta": 2,
+    "categoria": "Herramientas Manuales",
+    "nombre": "Destornillador Precisión",
+    "nro_serie_interno": "H-003",
+    "estado_fisico": "excelente",
+    "estado": 1
+  },
+  {
+    "id_herramienta": 4,
+    "id_categoria_herramienta": 2,
+    "categoria": "Herramientas Manuales",
+    "nombre": "Pinza Electrónica",
+    "nro_serie_interno": "H-004",
+    "estado_fisico": "bueno",
+    "estado": 1
+  },
+  {
+    "id_herramienta": 5,
+    "id_categoria_herramienta": 3,
+    "categoria": "Instrumentos de Medición",
+    "nombre": "Calibrador Digital",
+    "nro_serie_interno": "H-005",
+    "estado_fisico": "regular",
+    "estado": 1
+  },
+  {
+    "id_herramienta": 6,
+    "id_categoria_herramienta": 4,
+    "categoria": "Herramientas Especializadas",
+    "nombre": "Estación de Soldadura",
+    "nro_serie_interno": "H-006",
+    "estado_fisico": "bueno",
+    "estado": 1
+  }
+]
