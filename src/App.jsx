@@ -6,10 +6,11 @@ import Reportes from "./pages/Reportes.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import DashboardLayout from "./layouts/DashboardLayout.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
-import { Clientes, OrdenesServicio } from "./pages/modulo1";
+import { Clientes, OrdenesServicio, Personal, Equipos } from "./pages/modulo1";
 import { Compras, Proveedores } from "./pages/modulo2";
 import { Repuestos, Ventas } from "./pages/modulo3";
 import EnConstruccion from "./pages/EnConstruccion.jsx";
+
 
 export default function App() {
   return (
@@ -33,6 +34,8 @@ export default function App() {
         <Route path="repuestos" element={<Repuestos />} />
         <Route path="compras" element={<Compras />} />
         <Route path="ordenes" element={<OrdenesServicio />} />
+        <Route path="personal" element={<Personal />} />
+        <Route path="equipos" element={<Equipos />} />
 
 
         <Route path="proximamente" element={<EnConstruccion />} />

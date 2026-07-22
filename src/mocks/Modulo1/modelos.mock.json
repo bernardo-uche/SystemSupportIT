@@ -1,0 +1,8 @@
+[
+  { "id_modelo": 1, "nombre_modelo": "Pavilion 15", "estado": 1 },
+  { "id_modelo": 2, "nombre_modelo": "Latitude 5400", "estado": 1 },
+  { "id_modelo": 3, "nombre_modelo": "ThinkPad T14", "estado": 1 },
+  { "id_modelo": 4, "nombre_modelo": "MacBook Air", "estado": 1 },
+  { "id_modelo": 5, "nombre_modelo": "Galaxy Book", "estado": 1 },
+  { "id_modelo": 6, "nombre_modelo": "Aspire 5", "estado": 1 }
+]

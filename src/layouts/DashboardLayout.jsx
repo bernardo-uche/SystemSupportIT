@@ -16,8 +16,8 @@ const NAV_SECTIONS = [
     items: [
       { label: "Clientes", to: "/dashboard/clientes", icon: "🧑‍💼", roles: null, estado: "listo" },
       { label: "Órdenes de servicio", to: "/dashboard/ordenes", icon: "🛠️", roles: null, estado: "listo" },
-      { label: "Equipos", to: "equipos", icon: "💻", roles: null, estado: "pendiente" },
-      { label: "Personal", to: "personal", icon: "👨‍🔧", roles: ["administrador", "supervisor"], estado: "pendiente" },
+      { label: "Equipos", to: "/dashboard/equipos", icon: "💻", roles: null, estado: "listo" },
+      { label: "Personal", to: "/dashboard/personal", icon: "👨‍🔧", roles: ["administrador", "supervisor"], estado: "listo" },
     ],
   },
   {

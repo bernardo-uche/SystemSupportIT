@@ -13,7 +13,12 @@ export async function listarOrdenes() {
     return ordenesMock;
   }
 
-  const res = await fetch(`${API_URL}/ordenes-servicio`);
+  const res = await fetch(`${API_URL}/ordenes_servicio`, {
+    cache: "no-store",
+    headers: {
+      Accept: "application/json",
+    },
+  });
   if (!res.ok) throw new Error("No se pudo obtener la lista de órdenes.");
   return res.json();
 }

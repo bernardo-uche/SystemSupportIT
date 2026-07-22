@@ -1,0 +1,10 @@
+[
+  { "id_equipo": 1, "numero_serie": "SN001-HP", "color": "Plateado", "accesorios": "Cargador, Mouse", "estado": 1, "id_marca": 1, "id_modelo": 1 },
+  { "id_equipo": 2, "numero_serie": "SN002-DELL", "color": "Negro", "accesorios": "Cargador, Funda", "estado": 1, "id_marca": 2, "id_modelo": 2 },
+  { "id_equipo": 3, "numero_serie": "SN003-LENOVO", "color": "Gris", "accesorios": "Cargador", "estado": 1, "id_marca": 3, "id_modelo": 3 },
+  { "id_equipo": 4, "numero_serie": "SN004-APPLE", "color": "Oro", "accesorios": "Cargador, Adaptador", "estado": 1, "id_marca": 4, "id_modelo": 4 },
+  { "id_equipo": 5, "numero_serie": "SN005-SAMSUNG", "color": "Azul", "accesorios": "Cargador, Teclado", "estado": 1, "id_marca": 5, "id_modelo": 5 },
+  { "id_equipo": 6, "numero_serie": "SN006-HP", "color": "Blanco", "accesorios": "Cargador", "estado": 1, "id_marca": 1, "id_modelo": 1 },
+  { "id_equipo": 7, "numero_serie": "SN007-DELL", "color": "Plateado", "accesorios": "Cargador, Mouse", "estado": 1, "id_marca": 2, "id_modelo": 2 },
+  { "id_equipo": 8, "numero_serie": "SN008-ACER", "color": "Negro", "accesorios": "Cargador", "estado": 1, "id_marca": 6, "id_modelo": 6 }
+]

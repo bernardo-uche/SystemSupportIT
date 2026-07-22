@@ -1,0 +1,8 @@
+[
+  { "id_personal": 1, "nombre": "Juan", "apellido": "Pérez", "cargo": "Técnico Senior", "telefono": "77712345", "correo": "juan.perez@ti.com", "estado": 1 },
+  { "id_personal": 2, "nombre": "María", "apellido": "González", "cargo": "Técnico Junior", "telefono": "77712346", "correo": "maria.gonzalez@ti.com", "estado": 1 },
+  { "id_personal": 3, "nombre": "Carlos", "apellido": "Rodríguez", "cargo": "Supervisor", "telefono": "77712347", "correo": "carlos.rodriguez@ti.com", "estado": 1 },
+  { "id_personal": 4, "nombre": "Ana", "apellido": "Martínez", "cargo": "Técnico Senior", "telefono": "77712348", "correo": "ana.martinez@ti.com", "estado": 1 },
+  { "id_personal": 5, "nombre": "Luis", "apellido": "Fernández", "cargo": "Vendedor", "telefono": "77712349", "correo": "luis.fernandez@ti.com", "estado": 1 },
+  { "id_personal": 6, "nombre": "Laura", "apellido": "Torres", "cargo": "Administrador", "telefono": "77712350", "correo": "laura.torres@ti.com", "estado": 1 }
+]

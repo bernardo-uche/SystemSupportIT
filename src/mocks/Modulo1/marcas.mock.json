@@ -1,0 +1,8 @@
+[
+  { "id_marca": 1, "nombre_marca": "HP", "pais_origen": "Estados Unidos", "estado": 1 },
+  { "id_marca": 2, "nombre_marca": "Dell", "pais_origen": "Estados Unidos", "estado": 1 },
+  { "id_marca": 3, "nombre_marca": "Lenovo", "pais_origen": "China", "estado": 1 },
+  { "id_marca": 4, "nombre_marca": "Apple", "pais_origen": "Estados Unidos", "estado": 1 },
+  { "id_marca": 5, "nombre_marca": "Samsung", "pais_origen": "Corea del Sur", "estado": 1 },
+  { "id_marca": 6, "nombre_marca": "Acer", "pais_origen": "Taiwán", "estado": 1 }
+]

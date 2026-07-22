@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { listarOrdenes } from "../../services/Modulo1";
+import { listarOrdenes } from "../../services/Modulo1/ordenService";
 
 const ESTILOS_ESTADO = {
   pendiente: "bg-amber-50 text-amber-700",
@@ -84,14 +84,16 @@ export default function OrdenesServicio() {
             {ordenesFiltradas.map((o) => (
               <tr key={o.id_orden} className="border-b border-ink-100 last:border-0">
                 <td className="px-4 py-3 text-ink-900">
-                  {o.cliente.nombre} {o.cliente.apellido}
+                  {o.cliente?.nombre ? `${o.cliente.nombre} ${o.cliente.apellido}` : `Cliente #${o.id_cliente}`}
                 </td>
                 <td className="px-4 py-3 text-ink-600">
-                  {o.personal.nombre} {o.personal.apellido}
+                  {o.personal?.nombre ? `${o.personal.nombre} ${o.personal.apellido}` : `Personal #${o.id_personal}`}
                 </td>
                 <td className="px-4 py-3 text-ink-600">{o.problema_reportado}</td>
                 <td className="px-4 py-3 text-ink-600">{o.fecha_ingreso}</td>
-                <td className="px-4 py-3 text-ink-600">Bs {o.costo.toFixed(2)}</td>
+                <td className="px-4 py-3 text-ink-600">
+                  Bs {Number(o.costo).toFixed(2)}
+                </td>
                 <td className="px-4 py-3">
                   <span
                     className={`rounded-full px-2.5 py-1 text-xs font-medium ${ESTILOS_ESTADO[o.estado]}`}
